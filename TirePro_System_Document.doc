@@ -1,0 +1,1304 @@
+<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
+<head>
+<meta charset="UTF-8">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 15">
+<title>TirePro Management System – Full System Document</title>
+<style>
+  body { font-family: Calibri, sans-serif; font-size: 11pt; color: #1a1a1a; margin: 0; }
+  h1 { font-size: 26pt; color: #0d6e6e; page-break-before: always; margin-top: 24pt; margin-bottom: 6pt; }
+  h2 { font-size: 16pt; color: #0d6e6e; border-bottom: 2px solid #0d6e6e; padding-bottom: 4pt; margin-top: 18pt; margin-bottom: 6pt; }
+  h3 { font-size: 13pt; color: #1a5276; margin-top: 14pt; margin-bottom: 4pt; }
+  h4 { font-size: 11pt; color: #2e4053; margin-top: 10pt; margin-bottom: 3pt; font-style: italic; }
+  p  { margin: 0 0 7pt 0; line-height: 1.5; }
+  table { border-collapse: collapse; width: 100%; margin: 8pt 0 12pt 0; font-size: 10pt; }
+  th { background: #0d6e6e; color: #ffffff; padding: 6pt 8pt; text-align: left; font-weight: bold; }
+  td { border: 1px solid #c0c0c0; padding: 5pt 8pt; vertical-align: top; }
+  tr:nth-child(even) td { background: #f2f9f9; }
+  .cover { text-align: center; padding: 80pt 40pt; page-break-after: always; }
+  .cover h1 { font-size: 36pt; page-break-before: avoid; color: #0d6e6e; }
+  .cover .sub { font-size: 14pt; color: #555; margin-top: 10pt; }
+  .cover .meta { font-size: 11pt; color: #777; margin-top: 30pt; line-height: 2; }
+  .badge { display: inline-block; padding: 2pt 6pt; border-radius: 4pt; font-size: 9pt; font-weight: bold; }
+  .badge-green  { background: #d4edda; color: #155724; }
+  .badge-amber  { background: #fff3cd; color: #856404; }
+  .badge-red    { background: #f8d7da; color: #721c24; }
+  .badge-blue   { background: #d1ecf1; color: #0c5460; }
+  .badge-violet { background: #e8d5f5; color: #4a235a; }
+  .mockup { background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 6pt; padding: 10pt 14pt; font-family: Courier New, monospace; font-size: 9pt; line-height: 1.6; margin: 8pt 0 12pt 0; white-space: pre; }
+  .note { background: #fff8e1; border-left: 4pt solid #ffc107; padding: 8pt 12pt; margin: 8pt 0; font-size: 10pt; }
+  .warn { background: #ffeeba; border-left: 4pt solid #e67e22; padding: 8pt 12pt; margin: 8pt 0; font-size: 10pt; }
+  .info { background: #e8f4f8; border-left: 4pt solid #0d6e6e; padding: 8pt 12pt; margin: 8pt 0; font-size: 10pt; }
+  .pass { color: #155724; font-weight: bold; }
+  .fail { color: #721c24; font-weight: bold; }
+  ul, ol { margin: 4pt 0 8pt 0; padding-left: 18pt; }
+  li { margin-bottom: 3pt; line-height: 1.5; }
+  code { font-family: Courier New; font-size: 9pt; background: #f0f0f0; padding: 1pt 4pt; }
+  .section-label { font-size: 9pt; font-weight: bold; color: #888; letter-spacing: 1pt; text-transform: uppercase; margin-top: 12pt; margin-bottom: 2pt; }
+  hr { border: none; border-top: 1px solid #ddd; margin: 14pt 0; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════ COVER PAGE -->
+<div class="cover">
+  <p style="font-size:11pt; color:#0d6e6e; letter-spacing:3pt; font-weight:bold;">TIREPRO MANAGEMENT SYSTEM</p>
+  <h1 style="margin-top:20pt;">Full System Documentation</h1>
+  <p class="sub">Functional Specification · UI/UX Design Reference · QA Test Plan</p>
+  <hr style="width:200pt; margin:30pt auto; border-top:2px solid #0d6e6e;">
+  <p class="meta">
+    <b>Version:</b> 1.0 &nbsp;|&nbsp; <b>Date:</b> April 2026<br>
+    <b>Platform:</b> Web Application (React 19 + Node.js + SQL Server)<br>
+    <b>Target Industry:</b> Tyre Retail, Wholesale &amp; Distribution – Pakistan<br>
+    <b>Prepared by:</b> Business Analysis &amp; QA Engineering Team
+  </p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ TABLE OF CONTENTS -->
+<h1 style="page-break-before:always;">Table of Contents</h1>
+<ol style="font-size:11pt; line-height:2.2;">
+  <li>Executive Summary</li>
+  <li>System Architecture Overview</li>
+  <li>Multi-Tenancy Model (Organizations &amp; Branches)</li>
+  <li>Authentication &amp; Registration Module</li>
+  <li>Navigation &amp; Layout Structure</li>
+  <li>Dashboard Module</li>
+  <li>Sales Module</li>
+  <li>Purchases Module</li>
+  <li>Invoices Module</li>
+  <li>Inventory Module</li>
+  <li>Customers Module</li>
+  <li>Suppliers Module</li>
+  <li>Financial Ledger Module</li>
+  <li>Reports &amp; Analytics Module</li>
+  <li>Settings Module</li>
+  <li>Organizations &amp; Branches Module</li>
+  <li>Database Schema Reference</li>
+  <li>API Endpoints Reference</li>
+  <li>Business Workflow Diagrams</li>
+  <li>QA Test Plan &amp; Test Cases</li>
+  <li>Known Limitations &amp; Workarounds</li>
+</ol>
+
+<!-- ═══════════════════════════════════════════════════ 1. EXECUTIVE SUMMARY -->
+<h1>1. Executive Summary</h1>
+<p>TirePro is a full-stack web-based business management system purpose-built for the tyre industry in Pakistan. It enables tyre retailers, wholesalers, franchise networks, and distributors to manage their complete business operations from a single platform — covering sales, purchasing, inventory, customer/supplier accounts, financial ledger, and reporting.</p>
+
+<h3>Core Capabilities</h3>
+<ul>
+  <li><b>Multi-Organization / Multi-Branch:</b> One installation supports many independent businesses, each with multiple branches. Data is fully isolated per organization.</li>
+  <li><b>Sales &amp; Invoicing:</b> Create sales invoices, track payment status, generate PDF invoices, bulk import via Excel.</li>
+  <li><b>Purchase Orders:</b> Manage supplier POs, receive stock, track payment to suppliers.</li>
+  <li><b>Inventory Management:</b> Real-time tyre stock levels, low-stock alerts, cost/sale price margins.</li>
+  <li><b>Financial Ledger:</b> Banking-style accounts receivable and accounts payable per customer/supplier with running balance statements.</li>
+  <li><b>Reports:</b> P&amp;L summary, brand performance, monthly revenue/profit charts.</li>
+  <li><b>Settings:</b> Per-organization configuration — invoice prefixes, tax rates, currency, company profile.</li>
+</ul>
+
+<h3>Technology Stack</h3>
+<table>
+  <tr><th>Layer</th><th>Technology</th><th>Purpose</th></tr>
+  <tr><td>Frontend</td><td>React 19 + TypeScript + Vite</td><td>SPA, component-based UI</td></tr>
+  <tr><td>UI Library</td><td>Tailwind CSS + Lucide Icons</td><td>Styling &amp; icons</td></tr>
+  <tr><td>Charts</td><td>Recharts</td><td>Dashboard &amp; Reports visualizations</td></tr>
+  <tr><td>PDF Generation</td><td>jsPDF + html2canvas</td><td>Invoice PDF download</td></tr>
+  <tr><td>Backend</td><td>Node.js + Express.js</td><td>REST API server</td></tr>
+  <tr><td>Database</td><td>Microsoft SQL Server (MSSQL)</td><td>Persistent data store</td></tr>
+  <tr><td>Authentication</td><td>bcryptjs (password hashing)</td><td>Secure login</td></tr>
+  <tr><td>Data Import</td><td>xlsx (SheetJS)</td><td>Excel bulk import</td></tr>
+</table>
+
+<!-- ═══════════════════════════════════════════════ 2. SYSTEM ARCHITECTURE -->
+<h1>2. System Architecture Overview</h1>
+
+<h3>High-Level Architecture</h3>
+<div class="mockup">
+┌─────────────────────────────────────────────────────────────┐
+│                    BROWSER (React SPA)                      │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌───────────┐  │
+│  │ Sidebar  │  │  Header  │  │  Pages   │  │BottomNav  │  │
+│  │  (Nav)   │  │ (Search) │  │(Modules) │  │ (Mobile)  │  │
+│  └──────────┘  └──────────┘  └──────────┘  └───────────┘  │
+│         │              │           │                        │
+│         └──────────────┴───────────┘                        │
+│                        │                                    │
+│              api/client.ts (fetch wrapper)                  │
+│         X-Org-ID header + X-Branch-ID header                │
+└──────────────────────────┬──────────────────────────────────┘
+                           │ HTTP / REST API
+┌──────────────────────────▼──────────────────────────────────┐
+│                   NODE.JS / EXPRESS SERVER                   │
+│  ┌─────────────────────────────────────────────────────┐    │
+│  │  context.js: reads X-Org-ID, X-Branch-ID headers    │    │
+│  └─────────────────────────────────────────────────────┘    │
+│  Routes: /auth /sales /purchases /inventory /customers       │
+│          /suppliers /ledger /payments /settings              │
+│          /organizations /branches /products /lookups         │
+└──────────────────────────┬──────────────────────────────────┘
+                           │ mssql (tedious)
+┌──────────────────────────▼──────────────────────────────────┐
+│                  SQL SERVER DATABASE                         │
+│  organizations  branches  users  settings                    │
+│  customers  suppliers  tires  products  tire_types           │
+│  sales  sale_items  sale_payments                            │
+│  purchases  purchase_items  purchase_payments                │
+│  ledger_entries                                              │
+└─────────────────────────────────────────────────────────────┘</div>
+
+<h3>Context Propagation</h3>
+<p>Every API call from the frontend includes two custom headers:</p>
+<ul>
+  <li><code>X-Org-ID</code>: The organization ID stored in <code>localStorage.orgId</code> after login.</li>
+  <li><code>X-Branch-ID</code>: The branch ID stored in <code>localStorage.branchId</code> after login.</li>
+</ul>
+<p>The server reads these via <code>context.js → getContext(req)</code> and scopes all database queries to that organization/branch. Default fallback is <code>1</code> for backward compatibility.</p>
+
+<!-- ═══════════════════════════════════════════════ 3. MULTI-TENANCY MODEL -->
+<h1>3. Multi-Tenancy Model</h1>
+
+<h3>Three-Level Hierarchy</h3>
+<div class="mockup">
+Platform (TirePro installation)
+  └── Organization (Business entity, e.g. "Ahmed Tyre Works")
+        ├── Branch 1 (e.g. "Main Branch – Lahore")
+        ├── Branch 2 (e.g. "Karachi Branch")
+        └── Branch 3 (e.g. "Islamabad Branch")
+              └── Users (role: org_admin | branch_manager | cashier | staff)</div>
+
+<h3>Supported Business Models</h3>
+<table>
+  <tr><th>Scenario</th><th>Configuration</th><th>User Setup</th></tr>
+  <tr><td>Single shop, single location</td><td>1 Organization, 1 Branch</td><td>1 org_admin user</td></tr>
+  <tr><td>One business, multiple branches</td><td>1 Organization, N Branches</td><td>org_admin + per-branch staff</td></tr>
+  <tr><td>Multiple businesses (franchise/group)</td><td>N Organizations, each with N Branches</td><td>Separate org_admin per org</td></tr>
+</table>
+
+<h3>Data Scoping Rules</h3>
+<table>
+  <tr><th>Data Type</th><th>Scoped By</th><th>Tables</th></tr>
+  <tr><td>Customers, Suppliers</td><td>Organization only</td><td>customers, suppliers</td></tr>
+  <tr><td>Products, Tire Types</td><td>Organization only</td><td>products, tire_types</td></tr>
+  <tr><td>Settings, Company Profile</td><td>Organization only</td><td>settings</td></tr>
+  <tr><td>Inventory (Tires)</td><td>Organization + Branch</td><td>tires</td></tr>
+  <tr><td>Sales, Purchases</td><td>Organization + Branch</td><td>sales, purchases</td></tr>
+  <tr><td>Payments, Ledger Entries</td><td>Organization + Branch</td><td>sale_payments, purchase_payments, ledger_entries</td></tr>
+  <tr><td>Ledger Statements</td><td>Organization-wide (all branches)</td><td>JOIN across branches</td></tr>
+</table>
+
+<h3>Role Definitions</h3>
+<table>
+  <tr><th>Role</th><th>branch_id</th><th>Access Level</th></tr>
+  <tr><td>org_admin</td><td>NULL (picks branch at login)</td><td>Full access to all branches within org</td></tr>
+  <tr><td>branch_manager</td><td>Assigned branch ID</td><td>Full access to assigned branch only</td></tr>
+  <tr><td>cashier</td><td>Assigned branch ID</td><td>Sales &amp; payment operations only</td></tr>
+  <tr><td>staff</td><td>Assigned branch ID</td><td>Read-only + basic operations</td></tr>
+</table>
+
+<!-- ═══════════════════════════════════════════════ 4. AUTH MODULE -->
+<h1>4. Authentication &amp; Registration Module</h1>
+
+<h2>4.1 Login Screen</h2>
+<h3>UI Mockup</h3>
+<div class="mockup">
+┌─────────────────────────────────────────────────────────────────┐
+│  ┌───────────────────────────┐  ┌──────────────────────────┐   │
+│  │  BRANDING PANEL (lg+ only)│  │    FORM PANEL            │   │
+│  │                           │  │                          │   │
+│  │  [TrendingUp Icon]        │  │  [TirePro logo - mobile] │   │
+│  │  TirePro                  │  │                          │   │
+│  │  Management System        │  │  Welcome back            │   │
+│  │                           │  │  Sign in to your         │   │
+│  │  Manage your tyre         │  │  TirePro workspace       │   │
+│  │  business with            │  │                          │   │
+│  │  confidence.              │  │  [Continue with Google]  │   │
+│  │                           │  │  ─── or continue ───     │   │
+│  │  ✓ Smart Invoicing        │  │                          │   │
+│  │  ✓ Real-time Inventory    │  │  Email Address *         │   │
+│  │  ✓ Business Analytics     │  │  [✉ ahmed@company.pk  ]  │   │
+│  │                           │  │                          │   │
+│  │  500+  PKR 2B+  99.9%     │  │  Password *              │   │
+│  │  Businesses Tracked Uptime│  │  [🔒 ••••••••        👁] │   │
+│  │                           │  │                          │   │
+│  └───────────────────────────┘  │  [Forgot password?]      │   │
+│                                 │                          │   │
+│                                 │  [   Sign In  →   ]      │   │
+│                                 │                          │   │
+│                                 │  Don't have an account?  │   │
+│                                 │  Register now            │   │
+└─────────────────────────────────────────────────────────────────┘</div>
+
+<h3>Login Form Fields</h3>
+<table>
+  <tr><th>Field</th><th>Type</th><th>Required</th><th>Validation</th></tr>
+  <tr><td>Email Address</td><td>email</td><td>Yes</td><td>Must contain '@'</td></tr>
+  <tr><td>Password</td><td>password (toggleable)</td><td>Yes</td><td>Non-empty</td></tr>
+</table>
+
+<h3>Login Workflow</h3>
+<ol>
+  <li>User enters email + password, clicks "Sign In"</li>
+  <li>Client calls <code>POST /api/auth/login</code></li>
+  <li>Server hashes and compares password with bcrypt</li>
+  <li>On success, server returns: <code>id, name, email, role, organization_id, branch_id, organization{name,code,currency}, branches[]</code></li>
+  <li>Client stores <code>orgId</code> and <code>branchId</code> in <code>localStorage</code></li>
+  <li>App renders the main layout with <code>AuthUser</code> state set</li>
+</ol>
+
+<div class="info"><b>Rate Limiting:</b> Login endpoint is rate-limited to 10 attempts per 15 minutes per IP to prevent brute-force attacks.</div>
+
+<h2>4.2 Registration Screen</h2>
+<h3>UI Mockup</h3>
+<div class="mockup">
+┌─────────────────────────────────────────────────────────────────┐
+│  [Branding Panel]  │  Create account                           │
+│                    │  Get started with TirePro for free        │
+│                    │  [Continue with Google]                   │
+│                    │  ─────────────────────────────            │
+│                    │  Full Name *       [👤 Muhammad Ahmed   ] │
+│                    │  Email Address *   [✉ ahmed@company.pk  ] │
+│                    │  Phone Number *    [📞 +92-300-1234567  ] │
+│                    │  Business Name *   [🏢 TirePro Traders  ] │
+│                    │  Business Type *   [🏢 ▼ Select type…  ] │
+│                    │    Options: Retail | Wholesale |           │
+│                    │             Franchise | Distributor        │
+│                    │  City / Address    [📍 Lahore           ] │
+│                    │  Password *        [🔒 ••••••••      👁 ] │
+│                    │    [■■■□] Good password                   │
+│                    │  Confirm Password *[🔒 ••••••••      👁 ] │
+│                    │  ☐ I agree to Terms of Service            │
+│                    │  [   Create Account  →   ]                │
+│                    │  Already have an account? Sign in         │
+└─────────────────────────────────────────────────────────────────┘</div>
+
+<h3>Registration Form Fields</h3>
+<table>
+  <tr><th>Field</th><th>Type</th><th>Required</th><th>Maps To (Server)</th><th>Validation</th></tr>
+  <tr><td>Full Name</td><td>text</td><td>Yes</td><td>fullName → users.name</td><td>Non-empty, max 100 chars</td></tr>
+  <tr><td>Email Address</td><td>email</td><td>Yes</td><td>email</td><td>Valid email format, unique</td></tr>
+  <tr><td>Phone Number</td><td>tel</td><td>Yes</td><td>phone → users.phone, org_phone</td><td>Non-empty</td></tr>
+  <tr><td>Business Name</td><td>text</td><td>Yes</td><td>org_name → organizations.name</td><td>Non-empty, max 200 chars</td></tr>
+  <tr><td>Business Type</td><td>select</td><td>Yes</td><td>org_type → organizations.type</td><td>One of: retail, wholesale, franchise, distributor</td></tr>
+  <tr><td>City / Address</td><td>text</td><td>No</td><td>org_address → organizations.address, branches.address</td><td>Max 500 chars</td></tr>
+  <tr><td>Password</td><td>password</td><td>Yes</td><td>password (hashed)</td><td>Minimum 8 characters</td></tr>
+  <tr><td>Confirm Password</td><td>password</td><td>Yes</td><td>–</td><td>Must match Password field</td></tr>
+</table>
+
+<h3>Password Strength Indicator</h3>
+<table>
+  <tr><th>Score</th><th>Label</th><th>Color</th><th>Criteria Met</th></tr>
+  <tr><td>1</td><td>Weak</td><td>Red</td><td>Only 1 of: length≥8, uppercase, digit, special char</td></tr>
+  <tr><td>2</td><td>Fair</td><td>Amber</td><td>2 criteria</td></tr>
+  <tr><td>3</td><td>Good</td><td>Teal</td><td>3 criteria</td></tr>
+  <tr><td>4</td><td>Strong</td><td>Emerald</td><td>All 4 criteria</td></tr>
+</table>
+
+<h3>Registration Workflow (Server Side)</h3>
+<ol>
+  <li>Validate inputs (name, email format, password length, org_name)</li>
+  <li>Check email uniqueness in <code>users</code> table</li>
+  <li>Generate unique org code from business name (e.g. "Ahmed Tyre" → "AHMED-TYRE")</li>
+  <li>Insert into <code>organizations</code> table</li>
+  <li>Insert first branch (<code>"Main Branch"</code>, code <code>"MAIN"</code>) into <code>branches</code></li>
+  <li>Seed 12 default settings entries for the new organization</li>
+  <li>Hash password with bcrypt (12 rounds), insert <code>org_admin</code> user with <code>branch_id = NULL</code></li>
+  <li>Return <code>{ success: true, organization_id, branch_id }</code></li>
+  <li>Frontend shows success banner for 1.8 seconds, then redirects to login</li>
+</ol>
+
+<!-- ═══════════════════════════════════════════════ 5. NAVIGATION -->
+<h1>5. Navigation &amp; Layout Structure</h1>
+
+<h2>5.1 Desktop Layout</h2>
+<div class="mockup">
+┌──────────────┬──────────────────────────────────────────────────┐
+│   SIDEBAR    │  HEADER (title + subtitle + notifications + user) │
+│   (256px     │──────────────────────────────────────────────────│
+│   or 72px    │                                                  │
+│   collapsed) │          MAIN PAGE CONTENT AREA                  │
+│              │          (overflow-y: auto)                       │
+│  [Logo]      │                                                  │
+│  [User info] │                                                  │
+│              │                                                  │
+│  ANALYTICS   │                                                  │
+│  Dashboard   │                                                  │
+│  Reports     │                                                  │
+│              │                                                  │
+│  OPERATIONS  │                                                  │
+│  Sales  [3]  │                                                  │
+│  Purchases   │                                                  │
+│  Invoices    │                                                  │
+│              │                                                  │
+│  INVENTORY   │                                                  │
+│  Inventory   │                                                  │
+│              │                                                  │
+│  FINANCE     │                                                  │
+│  Ledger      │                                                  │
+│              │                                                  │
+│  MANAGEMENT  │                                                  │
+│  Customers   │                                                  │
+│  Suppliers   │                                                  │
+│  Organization│                                                  │
+│              │                                                  │
+│  ─────────── │                                                  │
+│  Settings    │                                                  │
+│  Sign Out    │                                                  │
+│  [Collapse]  │                                                  │
+└──────────────┴──────────────────────────────────────────────────┘</div>
+
+<h2>5.2 Mobile Layout</h2>
+<div class="mockup">
+┌──────────────────────────────────────┐
+│ HEADER: [☰] TirePro  [🔔] [Avatar]  │
+│──────────────────────────────────────│
+│                                      │
+│       MAIN PAGE CONTENT              │
+│       (pb-14 for bottom nav)         │
+│                                      │
+│──────────────────────────────────────│
+│ BOTTOM NAV (fixed, 56px height):     │
+│ [🏠] [🛒] [📦] [📊] [⋯ More]       │
+└──────────────────────────────────────┘
+
+Sidebar: slides in from left as overlay when ☰ tapped</div>
+
+<h3>Navigation Groups &amp; Items</h3>
+<table>
+  <tr><th>Group</th><th>Nav Item</th><th>Page ID</th><th>Badge (count)</th></tr>
+  <tr><td>ANALYTICS</td><td>Dashboard</td><td>dashboard</td><td>–</td></tr>
+  <tr><td>ANALYTICS</td><td>Reports</td><td>reports</td><td>–</td></tr>
+  <tr><td>OPERATIONS</td><td>Sales</td><td>sales</td><td>Today's sales count</td></tr>
+  <tr><td>OPERATIONS</td><td>Purchases</td><td>purchases</td><td>Today's purchase count</td></tr>
+  <tr><td>OPERATIONS</td><td>Invoices</td><td>invoices</td><td>–</td></tr>
+  <tr><td>INVENTORY</td><td>Inventory</td><td>inventory</td><td>–</td></tr>
+  <tr><td>FINANCE</td><td>Ledger</td><td>ledger</td><td>–</td></tr>
+  <tr><td>MANAGEMENT</td><td>Customers</td><td>customers</td><td>–</td></tr>
+  <tr><td>MANAGEMENT</td><td>Suppliers</td><td>suppliers</td><td>–</td></tr>
+  <tr><td>MANAGEMENT</td><td>Organization</td><td>organizations</td><td>–</td></tr>
+  <tr><td>FOOTER</td><td>Settings</td><td>settings</td><td>–</td></tr>
+</table>
+
+<h3>Header Features</h3>
+<ul>
+  <li><b>Left:</b> Hamburger menu (mobile only) + Dynamic page title + subtitle</li>
+  <li><b>Right:</b> Notification bell (badge with count) → dropdown of alerts; User avatar → dropdown (org info, sign out)</li>
+  <li><b>Notifications:</b> Overdue invoices (red severity), Pending purchase orders (warning severity) — clicking navigates to relevant page</li>
+</ul>
+
+<h3>News Banner</h3>
+<p>A dismissable announcement bar displayed below the header. Content is controlled via <b>Settings → Company Profile → Announcement</b>. Hidden when announcement is empty.</p>
+
+<!-- ═══════════════════════════════════════════════ 6. DASHBOARD -->
+<h1>6. Dashboard Module</h1>
+
+<h2>6.1 UI Mockup</h2>
+<div class="mockup">
+┌─────────────────────────────────────────────────────────────────┐
+│  Welcome back, Ahmed                                            │
+│  Welcome back                                                   │
+├───────────────┬───────────────┬───────────────┬────────────────┤
+│ SALES         │ INVENTORY     │ FINANCE        │               │
+│ PKR 485,000   │ 247 SKUs      │ PKR 125,000    │               │
+│ Revenue       │ Total Items   │ Total Receivable│              │
+│ ■ 42 Paid     │ ■ 198 Healthy │ ▲ PKR 48,000   │               │
+│ ⚠ 8 Pending   │ ⚠ 12 Low Stock│ Total Payable  │               │
+├───────────────┴───────────────┴────────────────┘               │
+│                                                                 │
+│  ┌──────────────────────────────────┐ ┌───────────────────┐    │
+│  │  Monthly Revenue & Profit        │ │ Sales by Type     │    │
+│  │  [Area Chart]                    │ │ [Donut Chart]     │    │
+│  │  Revenue ── Profit ---           │ │ Passenger 45%     │    │
+│  │                                  │ │ SUV/4x4   30%     │    │
+│  │   Jan Feb Mar Apr May Jun        │ │ Truck     15%     │    │
+│  └──────────────────────────────────┘ │ Motorcycle 10%   │    │
+│                                        └───────────────────┘   │
+│  Recent Sales                              Low Stock Alerts     │
+│  ┌────────────────────────────────┐  ┌────────────────────┐    │
+│  │ INV-2024-001  Ahmed   PKR 8,500│  │ Bridgestone P195   │    │
+│  │ INV-2024-002  Bilal   PKR 12,000│ │ ▲ Only 2 left      │    │
+│  │ ...                            │  │ Min reorder: 5     │    │
+│  └────────────────────────────────┘  └────────────────────┘    │
+└─────────────────────────────────────────────────────────────────┘</div>
+
+<h2>6.2 Data Elements</h2>
+<table>
+  <tr><th>Card</th><th>Metric</th><th>Data Source</th></tr>
+  <tr><td>Sales Performance</td><td>Total Revenue (PKR)</td><td>SUM(sales.total) WHERE org+branch</td></tr>
+  <tr><td>Sales Performance</td><td>Paid Invoice Count</td><td>COUNT(sales) WHERE status='paid'</td></tr>
+  <tr><td>Sales Performance</td><td>Pending Invoice Count</td><td>COUNT(sales) WHERE status IN ('pending','partial','overdue')</td></tr>
+  <tr><td>Inventory Status</td><td>Total SKUs</td><td>COUNT(tires) WHERE org+branch</td></tr>
+  <tr><td>Inventory Status</td><td>Healthy / Low Stock counts</td><td>stock &gt; reorder_level vs ≤</td></tr>
+  <tr><td>Finance Overview</td><td>Total Receivable</td><td>SUM(sales.total - sales.amount_paid)</td></tr>
+  <tr><td>Finance Overview</td><td>Total Payable</td><td>SUM(purchases.total - purchases.amount_paid)</td></tr>
+</table>
+
+<h2>6.3 Charts</h2>
+<table>
+  <tr><th>Chart</th><th>Type</th><th>X-Axis</th><th>Y-Axis</th><th>Series</th></tr>
+  <tr><td>Monthly Revenue &amp; Profit</td><td>Area Chart</td><td>Month name</td><td>PKR amount</td><td>Revenue (teal fill), Profit (emerald dashed)</td></tr>
+  <tr><td>Sales by Tire Type</td><td>Donut/Pie Chart</td><td>–</td><td>Revenue per type</td><td>Per tire type with % label</td></tr>
+</table>
+
+<!-- ═══════════════════════════════════════════════ 7. SALES -->
+<h1>7. Sales Module</h1>
+
+<h2>7.1 UI Mockup — Sales List</h2>
+<div class="mockup">
+┌─────────────────────────────────────────────────────────────────┐
+│  Sales                                                          │
+│  Manage customer sales and invoices                             │
+├──────────────┬──────────────┬──────────────────────────────────┤
+│ Total Sales  │  Collected   │  Outstanding                      │
+│ PKR 485,000  │  PKR 360,000 │  PKR 125,000                     │
+│  50 invoices │              │                                   │
+├──────────────┴──────────────┴──────────────────────────────────┤
+│ [🔍 Search invoice or customer]  [All ▼]  [Import] [New Sale+] │
+├──────────────────────────────────────────────────────────────────┤
+│ Invoice#  │Date    │Customer  │Total    │Paid │Bal  │Status│Act│
+├───────────┼────────┼──────────┼─────────┼─────┼─────┼──────┼───┤
+│INV-24-001 │Jan 15  │Ahmed     │8,500    │8,500│  0  │●Paid │👁🖨⬇│
+│INV-24-002 │Jan 16  │Bilal     │12,000   │6,000│6,000│◑Part │👁🖨⬇💳│
+│INV-24-003 │Jan 17  │Tariq     │5,500    │  0  │5,500│○Pend │👁🖨⬇💳│
+│INV-24-004 │Jan 10  │Kamran    │9,000    │  0  │9,000│●Over │👁🖨⬇💳│
+└──────────────────────────────────────────────────────────────────┘</div>
+
+<h2>7.2 Status Definitions</h2>
+<table>
+  <tr><th>Status</th><th>Color</th><th>Meaning</th><th>Transition Rules</th></tr>
+  <tr><td>pending</td><td><span class="badge badge-amber">Amber</span></td><td>Invoice created, no payment</td><td>Auto → partial (when payment &lt; total); Manual → overdue, paid</td></tr>
+  <tr><td>partial</td><td><span class="badge badge-blue">Blue</span></td><td>Some payment received</td><td>Auto → paid (when payment ≥ total)</td></tr>
+  <tr><td>paid</td><td><span class="badge badge-green">Emerald</span></td><td>Fully settled</td><td>Manual → overdue (if needed)</td></tr>
+  <tr><td>overdue</td><td><span class="badge badge-red">Red</span></td><td>Payment past due date</td><td>Auto → partial/paid on payment; Manual → pending</td></tr>
+</table>
+
+<h2>7.3 New Sale Modal — Form Fields</h2>
+<table>
+  <tr><th>Field</th><th>Type</th><th>Required</th><th>Notes</th></tr>
+  <tr><td>Customer</td><td>Searchable dropdown</td><td>Yes</td><td>Searches customer name/code</td></tr>
+  <tr><td>Date</td><td>date</td><td>Yes</td><td>Defaults to today</td></tr>
+  <tr><td>Status</td><td>select</td><td>Yes</td><td>Defaults to org's default_sale_status setting</td></tr>
+  <tr><td>Notes</td><td>text</td><td>No</td><td>Free text, appears on invoice</td></tr>
+  <tr><td>Line Items – Tire/Product</td><td>Searchable dropdown</td><td>Yes (min 1)</td><td>Searches tires (brand/model/size) + products</td></tr>
+  <tr><td>Line Items – Qty</td><td>number</td><td>Yes</td><td>Min 1; deducted from stock on save</td></tr>
+  <tr><td>Line Items – Unit Price</td><td>decimal</td><td>Yes</td><td>Pre-fills from tire/product sale_price</td></tr>
+  <tr><td>Tax Rate (%)</td><td>number</td><td>No</td><td>Defaults from org settings</td></tr>
+</table>
+
+<h2>7.4 Sales Business Rules</h2>
+<ul>
+  <li>Creating a sale decrements stock for each tire line item (stock = stock − qty)</li>
+  <li>Deleting a sale restores stock for each tire line item</li>
+  <li>Invoice number auto-generated: <code>[InvoicePrefix]-[YEAR]-[NNN]</code> (e.g. INV-2024-001)</li>
+  <li>Invoice prefix and numbering sequence are per-organization settings</li>
+  <li>amount_paid and status fields are automatically recalculated when payments are recorded or deleted</li>
+</ul>
+
+<h2>7.5 Payment Recording (PaymentModal)</h2>
+<table>
+  <tr><th>Field</th><th>Type</th><th>Required</th><th>Notes</th></tr>
+  <tr><td>Amount</td><td>decimal</td><td>Yes</td><td>Must be &gt; 0</td></tr>
+  <tr><td>Payment Date</td><td>date</td><td>Yes</td><td>Defaults to today</td></tr>
+  <tr><td>Payment Method</td><td>select</td><td>Yes</td><td>Cash, Bank Transfer, Cheque, Card</td></tr>
+  <tr><td>Reference No</td><td>text</td><td>No</td><td>Cheque / transfer reference</td></tr>
+  <tr><td>Notes</td><td>text</td><td>No</td><td>Free text</td></tr>
+</table>
+<p>On payment record: updates <code>sales.amount_paid</code> and <code>sales.status</code>; inserts row into <code>sale_payments</code> and <code>ledger_entries</code> in a single SQL transaction.</p>
+
+<h2>7.6 Excel Import Format</h2>
+<table>
+  <tr><th>Column</th><th>Required</th><th>Format</th></tr>
+  <tr><td>customer_name</td><td>Yes</td><td>Exact match to customer name in system</td></tr>
+  <tr><td>date</td><td>Yes</td><td>YYYY-MM-DD</td></tr>
+  <tr><td>item_name</td><td>Yes</td><td>Exact match to tire (brand+model+size) or product name</td></tr>
+  <tr><td>qty</td><td>Yes</td><td>Integer</td></tr>
+  <tr><td>unit_price</td><td>Yes</td><td>Decimal</td></tr>
+  <tr><td>status</td><td>No</td><td>pending / paid / partial / overdue</td></tr>
+  <tr><td>notes</td><td>No</td><td>Text</td></tr>
+</table>
+
+<!-- ═══════════════════════════════════════════════ 8. PURCHASES -->
+<h1>8. Purchases Module</h1>
+
+<h2>8.1 UI Mockup</h2>
+<div class="mockup">
+┌─────────────────────────────────────────────────────────────────┐
+│  Purchases                                                      │
+│  Track supplier orders and deliveries                           │
+├──────────────┬──────────────┬──────────────┬───────────────────┤
+│ Total Purch. │ Total Paid   │ Outstanding  │ Pending Delivery  │
+│ PKR 320,000  │ PKR 280,000  │ PKR 40,000   │ PKR 85,000        │
+├──────────────┴──────────────┴──────────────┴───────────────────┤
+│ [🔍 Search PO or supplier]  [All ▼]  [Import] [New Purchase+]  │
+├──────────────────────────────────────────────────────────────────┤
+│ PO#      │Date  │Supplier  │Total  │Paid  │Bal  │Status  │Act  │
+├──────────┼──────┼──────────┼───────┼──────┼─────┼────────┼─────┤
+│PO-24-001 │Jan 5 │BridgeCo  │45,000 │45,000│  0  │✓Recvd  │👁   │
+│PO-24-002 │Jan 8 │TyrePlus  │32,000 │16,000│16,000│●Pend  │👁💳📦✗│
+│PO-24-003 │Jan 9 │MichCo    │28,000 │  0   │28,000│✗Cancel│👁   │
+└──────────────────────────────────────────────────────────────────┘</div>
+
+<h2>8.2 PO Status Definitions</h2>
+<table>
+  <tr><th>Status</th><th>Color</th><th>Meaning</th><th>Stock Effect</th></tr>
+  <tr><td>pending</td><td><span class="badge badge-amber">Amber</span></td><td>PO created, awaiting delivery</td><td>No stock change</td></tr>
+  <tr><td>received</td><td><span class="badge badge-green">Emerald</span></td><td>Goods received and stocked</td><td>+qty to each tire's stock</td></tr>
+  <tr><td>cancelled</td><td><span class="badge badge-red">Red</span></td><td>PO cancelled (if previously received, stock reversed)</td><td>−qty if was received</td></tr>
+</table>
+
+<h2>8.3 New Purchase Modal — Form Fields</h2>
+<table>
+  <tr><th>Field</th><th>Type</th><th>Required</th><th>Notes</th></tr>
+  <tr><td>Supplier</td><td>Searchable dropdown</td><td>Yes</td><td>Searches supplier name/code</td></tr>
+  <tr><td>Date</td><td>date</td><td>Yes</td><td>Defaults to today</td></tr>
+  <tr><td>Status</td><td>select</td><td>Yes</td><td>pending or received</td></tr>
+  <tr><td>Notes</td><td>text</td><td>No</td><td>Appears on PO printout</td></tr>
+  <tr><td>Line Items – Tire/Product</td><td>Searchable dropdown</td><td>Yes (min 1)</td><td>Searches tires + products</td></tr>
+  <tr><td>Line Items – Qty</td><td>number</td><td>Yes</td><td>Min 1; if status=received, adds to stock</td></tr>
+  <tr><td>Line Items – Unit Price</td><td>decimal</td><td>Yes</td><td>Purchase (cost) price</td></tr>
+</table>
+
+<h2>8.4 Purchase Business Rules</h2>
+<ul>
+  <li>PO number auto-generated: <code>[POPrefix]-[YEAR]-[NNN]</code> (e.g. PO-2024-001)</li>
+  <li>When status changes to <b>received</b>: each tire line item's stock is incremented</li>
+  <li>When status changes to <b>cancelled</b> from received: stock is decremented (floor at 0)</li>
+  <li>Deleting a received PO also decrements stock</li>
+  <li>Purchase payments update <code>purchases.amount_paid</code> and insert into <code>ledger_entries</code></li>
+</ul>
+
+<!-- ═══════════════════════════════════════════════ 9. INVOICES -->
+<h1>9. Invoices Module</h1>
+
+<h2>9.1 UI Mockup — Split Panel</h2>
+<div class="mockup">
+┌──────────────────────────────────────────────────────────────────┐
+│  Invoices                                                        │
+│  View and print professional invoices                            │
+│  [🔍 Search]  [Refresh]  [Import]  [New Sale+]                  │
+├───────────────────────┬──────────────────────────────────────────┤
+│ INVOICE LIST (left)   │  INVOICE PREVIEW (right)                 │
+│                       │  ┌────────────────────────────────────┐  │
+│ INV-24-001            │  │  [Company Logo / Initial]          │  │
+│ Ahmed · PKR 8,500     │  │  TirePro Traders                   │  │
+│ ● Paid                │  │  Your Tyre & Wheel Partner         │  │
+│                       │  │  Lahore, Pakistan                  │  │
+│ INV-24-002            │  │                                    │  │
+│ Bilal · PKR 12,000    │  │  INVOICE                           │  │
+│ ◑ Partial             │  │  INV-2024-001          Jan 15 2024 │  │
+│                       │  │  Status: ● PAID                    │  │
+│ INV-24-003            │  │                                    │  │
+│ Tariq · PKR 5,500     │  │  Bill To:                          │  │
+│ ○ Pending             │  │  Ahmed Hassan                      │  │
+│                       │  │  📞 +92-300-1234567               │  │
+│                       │  │                                    │  │
+│                       │  │  Item          Qty  Price    Amt   │  │
+│                       │  │  Bridgestone    2   2,500   5,000  │  │
+│                       │  │  P195/65R15                        │  │
+│                       │  │  ──────────────────────────────    │  │
+│                       │  │  Subtotal              5,000       │  │
+│                       │  │  Total (bold blue)     5,000       │  │
+│                       │  │                                    │  │
+│                       │  │  [🖨 Print] [⬇ Download PDF]       │  │
+│                       │  └────────────────────────────────────┘  │
+└───────────────────────┴──────────────────────────────────────────┘</div>
+
+<h2>9.2 PDF Invoice Features</h2>
+<ul>
+  <li>Generated client-side via <b>jsPDF + html2canvas</b></li>
+  <li>Company logo renders as initial-letter avatar if no logo configured</li>
+  <li>Company profile pulled from org Settings at generation time</li>
+  <li>Filename format: <code>[InvoiceNo].pdf</code></li>
+  <li>Print opens browser print dialog with print-optimized layout</li>
+</ul>
+
+<!-- ═══════════════════════════════════════════════ 10. INVENTORY -->
+<h1>10. Inventory Module</h1>
+
+<h2>10.1 UI Mockup — Desktop Table View</h2>
+<div class="mockup">
+┌─────────────────────────────────────────────────────────────────┐
+│  Inventory                                                      │
+│  Monitor tire stock levels                                      │
+├──────────────┬──────────────────┬────────────────────────────────┤
+│ Stock Value  │  Total Units     │  Low Stock Alerts              │
+│ PKR 2.4M     │  1,240 pcs       │  ⚠ 12 SKUs                    │
+├──────────────┴──────────────────┴────────────────────────────────┤
+│ [🔍 Search brand/model/size] [All Types ▼] [Import] [Add Tire+] │
+├───────────┬────────┬─────────────┬──────┬──────────┬────────────┤
+│ Brand     │ Model  │ Size        │ Type │ Stock    │ Cost/Sale  │
+├───────────┼────────┼─────────────┼──────┼──────────┼────────────┤
+│Bridgestone│ B-250  │ P195/65R15  │Pcr   │ [████░] 8│ 2,000/2,500│
+│           │        │             │      │ ▓ In Stock│ Margin 25%│
+├───────────┼────────┼─────────────┼──────┼──────────┼────────────┤
+│Michelin   │ E-Prim │ 205/55R16   │Pcr   │ [█░░░░] 2│ 3,200/4,000│
+│           │        │             │      │⚠ Low Stock│ Margin 25%│
+└───────────┴────────┴─────────────┴──────┴──────────┴────────────┘</div>
+
+<h2>10.2 Add/Edit Tire Form Fields</h2>
+<table>
+  <tr><th>Field</th><th>Type</th><th>Required</th><th>Notes</th></tr>
+  <tr><td>Brand</td><td>text</td><td>Yes</td><td>e.g. Bridgestone, Michelin, General</td></tr>
+  <tr><td>Model</td><td>text</td><td>Yes</td><td>e.g. B-250, Energy Saver</td></tr>
+  <tr><td>Size</td><td>text</td><td>Yes</td><td>e.g. P195/65R15, 205/55R16</td></tr>
+  <tr><td>Tire Type</td><td>select (from lookup)</td><td>Yes</td><td>Populated from tire_types lookup table</td></tr>
+  <tr><td>Stock (Qty)</td><td>integer ≥ 0</td><td>Yes</td><td>Current stock level</td></tr>
+  <tr><td>Reorder Level</td><td>integer ≥ 0</td><td>No</td><td>Triggers Low Stock alert when stock ≤ this</td></tr>
+  <tr><td>Cost Price</td><td>decimal ≥ 0</td><td>No</td><td>Purchase cost per unit</td></tr>
+  <tr><td>Sale Price</td><td>decimal ≥ 0</td><td>Yes</td><td>Selling price per unit</td></tr>
+  <tr><td>Notes</td><td>text</td><td>No</td><td>Internal notes about this SKU</td></tr>
+</table>
+
+<h2>10.3 Inventory Business Rules</h2>
+<ul>
+  <li>Stock is <b>decremented</b> when a sale is created with tire line items</li>
+  <li>Stock is <b>incremented</b> when a purchase is received (status=received)</li>
+  <li>Stock floor is 0 (never goes negative via system operations)</li>
+  <li>Margin % = ((Sale Price − Cost Price) / Cost Price) × 100</li>
+  <li>Low Stock = stock ≤ reorder_level (defaults: if reorder_level is 0 or null, no alert)</li>
+  <li>Stock Value = SUM(stock × cost_price) for all tires in branch</li>
+</ul>
+
+<h2>10.4 Excel Import Format (Inventory)</h2>
+<table>
+  <tr><th>Column</th><th>Required</th><th>Format</th></tr>
+  <tr><td>brand</td><td>Yes</td><td>Text</td></tr>
+  <tr><td>model</td><td>Yes</td><td>Text</td></tr>
+  <tr><td>size</td><td>Yes</td><td>Text e.g. P195/65R15</td></tr>
+  <tr><td>tire_type</td><td>No</td><td>Exact name from tire_types lookup</td></tr>
+  <tr><td>stock</td><td>Yes</td><td>Integer ≥ 0</td></tr>
+  <tr><td>reorder_level</td><td>No</td><td>Integer</td></tr>
+  <tr><td>cost_price</td><td>No</td><td>Decimal</td></tr>
+  <tr><td>sale_price</td><td>Yes</td><td>Decimal</td></tr>
+</table>
+
+<!-- ═══════════════════════════════════════════════ 11. CUSTOMERS -->
+<h1>11. Customers Module</h1>
+
+<h2>11.1 UI Mockup</h2>
+<div class="mockup">
+┌─────────────────────────────────────────────────────────────────┐
+│  Customers                                                      │
+│  Manage customer relationships                                  │
+├──────────────┬──────────────┬──────────────┬───────────────────┤
+│ Total Cust.  │ Total Invoiced│ Total Coll. │ Outstanding       │
+│     45       │ PKR 485,000  │ PKR 360,000  │ PKR 125,000       │
+├──────────────┴──────────────┴──────────────┴───────────────────┤
+│ [🔍 Search name/code/phone] [Refresh] [Import] [Add Customer+] │
+├──────────────────────────────────────────────────────────────────┤
+│ CUSTOMER CARDS (Grid):                                          │
+│                                                                 │
+│ ┌─────────────────────┐  ┌─────────────────────┐               │
+│ │ [A]  Ahmed Hassan   │  │ [B]  Bilal Khan      │               │
+│ │ CUST-001  12 inv.   │  │ CUST-002  8 inv.     │               │
+│ │ ● Settled           │  │ ◑ Balance Due        │               │
+│ │ 📞 +92-300-xxx      │  │ 📞 +92-311-xxx       │               │
+│ │ ✉ ahmed@mail.com    │  │                      │               │
+│ │ 📍 Lahore           │  │ 📍 Karachi           │               │
+│ │ Invoiced: 8,500     │  │ Invoiced: 12,000     │               │
+│ │ Paid:     8,500     │  │ Paid:      6,000     │               │
+│ │ Balance:      0     │  │ Balance:   6,000     │               │
+│ │ [████████████] 100% │  │ [██████░░░░░░] 50%   │               │
+│ └─────────────────────┘  └─────────────────────┘               │
+└──────────────────────────────────────────────────────────────────┘</div>
+
+<h2>11.2 Customer Form Fields</h2>
+<table>
+  <tr><th>Field</th><th>Type</th><th>Required</th><th>Auto-generated</th></tr>
+  <tr><td>Full Name</td><td>text</td><td>Yes</td><td>–</td></tr>
+  <tr><td>Phone Number</td><td>tel</td><td>No</td><td>–</td></tr>
+  <tr><td>Email Address</td><td>email</td><td>No</td><td>–</td></tr>
+  <tr><td>City / Address</td><td>text</td><td>No</td><td>–</td></tr>
+  <tr><td>Code</td><td>–</td><td>–</td><td>CUST-001, CUST-002… (sequential per org)</td></tr>
+</table>
+
+<h2>11.3 Customer Financial Summary (displayed on card)</h2>
+<table>
+  <tr><th>Metric</th><th>Formula</th></tr>
+  <tr><td>Total Invoiced</td><td>SUM(sales.total) for this customer</td></tr>
+  <tr><td>Total Paid</td><td>SUM(sales.amount_paid)</td></tr>
+  <tr><td>Balance</td><td>Total Invoiced − Total Paid</td></tr>
+  <tr><td>Invoice Count</td><td>COUNT(sales)</td></tr>
+  <tr><td>Payment Progress %</td><td>(Paid / Invoiced) × 100</td></tr>
+  <tr><td>Status</td><td>"Settled" if balance ≤ 0.005, else "Balance Due"</td></tr>
+</table>
+
+<!-- ═══════════════════════════════════════════════ 12. SUPPLIERS -->
+<h1>12. Suppliers Module</h1>
+<p>The Suppliers module mirrors the Customers module in layout and behavior, with the following differences:</p>
+<table>
+  <tr><th>Aspect</th><th>Customers</th><th>Suppliers</th></tr>
+  <tr><td>Avatar color</td><td>Blue</td><td>Violet</td></tr>
+  <tr><td>Icon on card</td><td>User initial letter</td><td>Truck icon</td></tr>
+  <tr><td>Financial basis</td><td>Sales invoices (receivables)</td><td>Purchase orders (payables)</td></tr>
+  <tr><td>Summary labels</td><td>Invoiced / Collected / Outstanding</td><td>Purchased / Paid Out / Payable</td></tr>
+  <tr><td>Code prefix</td><td>CUST-</td><td>SUPP-</td></tr>
+  <tr><td>Field: Company Name</td><td>Full Name</td><td>Company Name</td></tr>
+  <tr><td>Excel bulk import</td><td>Yes</td><td>Yes</td></tr>
+</table>
+
+<h2>12.1 Supplier Form Fields</h2>
+<table>
+  <tr><th>Field</th><th>Type</th><th>Required</th></tr>
+  <tr><td>Company Name</td><td>text</td><td>Yes</td></tr>
+  <tr><td>Phone / Fax</td><td>tel</td><td>No</td></tr>
+  <tr><td>Email Address</td><td>email</td><td>No</td></tr>
+  <tr><td>City / Address</td><td>text</td><td>No</td></tr>
+</table>
+
+<!-- ═══════════════════════════════════════════════ 13. LEDGER -->
+<h1>13. Financial Ledger Module</h1>
+
+<h2>13.1 UI Mockup</h2>
+<div class="mockup">
+┌─────────────────────────────────────────────────────────────────┐
+│  Financial Ledger                                               │
+│  Banking-style accounts receivable & payable                    │
+├──────────────┬──────────────┬──────────────┬───────────────────┤
+│ RECEIVABLE   │ PAYABLE      │ COLLECTED    │ NET POSITION      │
+│ PKR 125,000  │ PKR 40,000   │ PKR 360,000  │ PKR +320,000      │
+│ 5 unpaid     │              │              │ (teal = positive) │
+│ 3 partial    │              │              │                   │
+├──────────────┴──────────────┴──────────────┴───────────────────┤
+│  [Receivables]  [Payables]                                      │
+├───────────────────────┬──────────────────────────────────────────┤
+│ ENTITY LIST (left)    │  STATEMENT PANEL (right)                 │
+│ [🔍 Search]  [↻]      │                                          │
+│                       │  [A] Ahmed Hassan    CUST-001            │
+│ [A] Ahmed Hassan      │  📞 +92-300-xxx  ✉ ahmed@mail           │
+│ CUST-001              │  📍 Lahore                               │
+│ PKR 6,000 owed ──→    │                                          │
+│ [████████░░] 80%      │  Balance: PKR 6,000          [💳 Pay]   │
+│                       │                                          │
+│ [B] Bilal Khan        │  Invoiced: 12,000 | Paid: 6,000 | Due:6,000│
+│ CUST-002              │                                          │
+│ PKR 0 ─ Settled       │  ┌───────────────────────────────────┐  │
+│                       │  │Date  │Type    │Ref    │Dr  │Cr│Bal │  │
+│                       │  │Jan15 │Invoice │INV-001│12K │  │12K │  │
+│                       │  │Jan20 │Payment │RCP-001│    │6K│6K  │  │
+│                       │  └───────────────────────────────────┘  │
+└───────────────────────┴──────────────────────────────────────────┘</div>
+
+<h2>13.2 Statement Entry Types</h2>
+<table>
+  <tr><th>Entry Type</th><th>Tab</th><th>Debit Column</th><th>Credit Column</th><th>Balance Effect</th></tr>
+  <tr><td>Invoice</td><td>Receivables</td><td>Invoice total</td><td>–</td><td>Balance increases (customer owes more)</td></tr>
+  <tr><td>Payment</td><td>Receivables</td><td>–</td><td>Payment amount</td><td>Balance decreases (customer paid)</td></tr>
+  <tr><td>Purchase</td><td>Payables</td><td>–</td><td>PO total</td><td>Balance increases (we owe supplier)</td></tr>
+  <tr><td>Payment</td><td>Payables</td><td>Payment amount</td><td>–</td><td>Balance decreases (we paid supplier)</td></tr>
+</table>
+
+<h2>13.3 Running Balance Logic</h2>
+<ul>
+  <li><b>Receivables:</b> running_balance = previous_balance + debit − credit</li>
+  <li><b>Payables:</b> running_balance = previous_balance + credit − debit</li>
+  <li>Entries ordered by entry_date ASC, then created_at ASC</li>
+  <li>Statements are <b>org-wide</b> (show all branches) to present complete account history</li>
+</ul>
+
+<h2>13.4 Record Payment Modal (LedgerPaymentModal)</h2>
+<table>
+  <tr><th>Field</th><th>Type</th><th>Notes</th></tr>
+  <tr><td>Amount</td><td>decimal</td><td>Required; must be &gt; 0</td></tr>
+  <tr><td>Payment Date</td><td>date</td><td>Defaults to today</td></tr>
+  <tr><td>Payment Method</td><td>select</td><td>Cash, Bank Transfer, Cheque, Card</td></tr>
+  <tr><td>Reference No</td><td>text</td><td>Optional: cheque/transfer number</td></tr>
+  <tr><td>Apply To</td><td>list of unpaid invoices/POs</td><td>Multi-select with individual amounts</td></tr>
+  <tr><td>Notes</td><td>text</td><td>Optional</td></tr>
+</table>
+
+<!-- ═══════════════════════════════════════════════ 14. REPORTS -->
+<h1>14. Reports &amp; Analytics Module</h1>
+
+<h2>14.1 UI Mockup</h2>
+<div class="mockup">
+┌─────────────────────────────────────────────────────────────────┐
+│  Reports & Analytics                                            │
+│  Business performance insights                                  │
+├──────────────┬──────────────┬──────────────┬───────────────────┤
+│ Total Revenue│ Cost of Goods│ Gross Profit │ Margin            │
+│ PKR 485,000  │ PKR 320,000  │ PKR 165,000  │ 34%               │
+│ (blue)       │ (violet)     │ (emerald)    │ (amber)           │
+├──────────────┴──────────────┴──────────────┴───────────────────┤
+│                                                                 │
+│  ┌────────────────────────────────┐                            │
+│  │  Monthly Revenue vs Purchases  │                            │
+│  │  [Bar Chart]                   │                            │
+│  │  Revenue ■  Purchases ■        │                            │
+│  │  Jan  Feb  Mar  Apr  May  Jun  │                            │
+│  └────────────────────────────────┘                            │
+│                                                                 │
+│  ┌────────────────────────────────┐                            │
+│  │  Monthly Profit Trend          │                            │
+│  │  [Line Chart]                  │                            │
+│  │  Profit ---                    │                            │
+│  └────────────────────────────────┘                            │
+│                                                                 │
+│  Brand Performance                                              │
+│  ┌───────────────────────────────────────────────────────────┐ │
+│  │ Brand       │ Units │ Inv. Value │ Avg Sale │ Value Share  │ │
+│  ├─────────────┼───────┼────────────┼──────────┼─────────────┤ │
+│  │ Bridgestone │  240  │ PKR 580,000│ PKR 2,800│ [████░░] 35%│ │
+│  │ Michelin    │  180  │ PKR 648,000│ PKR 3,800│ [███░░░] 30%│ │
+│  └───────────────────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────────┘</div>
+
+<h2>14.2 P&amp;L Calculation</h2>
+<table>
+  <tr><th>Metric</th><th>Formula / Data Source</th></tr>
+  <tr><td>Total Revenue</td><td>SUM(sales.total) for org+branch (all statuses except possibly cancelled)</td></tr>
+  <tr><td>Cost of Goods</td><td>SUM(purchases.total) WHERE status = 'received' for org+branch</td></tr>
+  <tr><td>Gross Profit</td><td>Revenue − Cost of Goods</td></tr>
+  <tr><td>Gross Margin %</td><td>(Gross Profit / Revenue) × 100</td></tr>
+</table>
+
+<!-- ═══════════════════════════════════════════════ 15. SETTINGS -->
+<h1>15. Settings Module</h1>
+
+<h2>15.1 Tab 1: Company Profile</h2>
+<table>
+  <tr><th>Field</th><th>Type</th><th>Used In</th></tr>
+  <tr><td>Company Name</td><td>text</td><td>Invoice header, PDF</td></tr>
+  <tr><td>Tagline</td><td>text</td><td>Invoice sub-header</td></tr>
+  <tr><td>Address</td><td>textarea</td><td>Invoice header</td></tr>
+  <tr><td>Phone</td><td>text</td><td>Invoice header</td></tr>
+  <tr><td>Email</td><td>email</td><td>Invoice header</td></tr>
+  <tr><td>Announcement</td><td>textarea</td><td>NewsBanner top of every page</td></tr>
+</table>
+
+<h2>15.2 Tab 2: Invoice &amp; PO Defaults</h2>
+<table>
+  <tr><th>Setting Key</th><th>Field</th><th>Default</th><th>Effect</th></tr>
+  <tr><td>invoice_prefix</td><td>Invoice Prefix</td><td>INV</td><td>INV-2024-001 number format</td></tr>
+  <tr><td>po_prefix</td><td>PO Prefix</td><td>PO</td><td>PO-2024-001 number format</td></tr>
+  <tr><td>default_tax_rate</td><td>Default Tax Rate (%)</td><td>15</td><td>Pre-fills tax in new sale form</td></tr>
+  <tr><td>payment_due_days</td><td>Payment Due (days)</td><td>30</td><td>Future: due date calculation</td></tr>
+  <tr><td>currency</td><td>Currency Code</td><td>PKR</td><td>Displayed on all money values</td></tr>
+  <tr><td>default_sale_status</td><td>Default Sale Status</td><td>pending</td><td>Pre-fills status in new sale form</td></tr>
+</table>
+
+<h2>15.3 Tab 3: Products (Non-Tire Items)</h2>
+<p>Products are non-tire items that can be added as line items in sales and purchases (e.g. services, accessories, valves, wheel balancing).</p>
+<table>
+  <tr><th>Field</th><th>Type</th><th>Required</th></tr>
+  <tr><td>Code</td><td>text</td><td>No</td></tr>
+  <tr><td>Name</td><td>text</td><td>Yes</td></tr>
+  <tr><td>Category</td><td>text</td><td>No</td></tr>
+  <tr><td>Unit</td><td>text</td><td>No (e.g. pcs, set, hr)</td></tr>
+  <tr><td>Cost Price</td><td>decimal</td><td>No</td></tr>
+  <tr><td>Sale Price</td><td>decimal</td><td>No</td></tr>
+  <tr><td>Description</td><td>text</td><td>No</td></tr>
+  <tr><td>Active</td><td>checkbox</td><td>Yes (default: checked)</td></tr>
+</table>
+
+<h2>15.4 Tab 4: Lookup Tables (Tire Types)</h2>
+<p>Tire types are used as a classification for inventory tires. Examples: Passenger Car, SUV/4x4, Truck/Commercial, Motorcycle, Agriculture, OTR.</p>
+<ul>
+  <li>Add new type: type name in text field + click "Add"</li>
+  <li>Edit: click edit icon → inline input → Save or Cancel</li>
+  <li>Delete: click delete icon (no confirmation required)</li>
+  <li>Tire types are org-scoped (each org has its own list)</li>
+</ul>
+
+<h2>15.5 Settings Save Behavior</h2>
+<ul>
+  <li>Tab 1 and Tab 2 have a persistent "Save Changes" footer bar</li>
+  <li>Changes not auto-saved; unsaved changes shown with unsaved indicator</li>
+  <li>On save: <code>POST /api/settings</code> with all key-value pairs; server uses MERGE (upsert)</li>
+  <li>Settings are cached client-side via <code>appSettings.ts</code> for use in PDF generation</li>
+</ul>
+
+<!-- ═══════════════════════════════════════════════ 16. ORGANIZATIONS -->
+<h1>16. Organizations &amp; Branches Module</h1>
+
+<h2>16.1 UI Mockup</h2>
+<div class="mockup">
+┌─────────────────────────────────────────────────────────────────┐
+│  Organization                                                   │
+│  Manage organizations and branches                              │
+│                                                                 │
+│  ┌─────────────────────────────────────────────────────────┐   │
+│  │ [🏢]  Ahmed Tyre Works            [AHMED-TYRE]   PKR   │   │
+│  │       Retail                                            │   │
+│  │       📞 +92-300-xxx  ✉ info@at.pk  📍 Lahore          │   │
+│  └─────────────────────────────────────────────────────────┘   │
+│                                                                 │
+│  ┌─────────────────────────────────────────────────────────┐   │
+│  │ Branches  (2 active)                  [+ Add Branch]    │   │
+│  ├────────────────────────────────────────────────────────┤    │
+│  │ [⎇] Main Branch  [MAIN]                                │    │
+│  │     📞 +92-300-xxx  📍 Lahore                          │    │
+│  │                                            [✎] [🗑]    │    │
+│  ├────────────────────────────────────────────────────────┤    │
+│  │ [⎇] Karachi Branch  [KHI]                              │    │
+│  │     📞 +92-21-xxx   📍 Karachi                         │    │
+│  │                                            [✎] [🗑]    │    │
+│  └────────────────────────────────────────────────────────┘    │
+└─────────────────────────────────────────────────────────────────┘</div>
+
+<h2>16.2 Branch Form Fields</h2>
+<table>
+  <tr><th>Field</th><th>Required</th><th>Validation</th></tr>
+  <tr><td>Branch Name</td><td>Yes</td><td>Non-empty, max 200 chars</td></tr>
+  <tr><td>Branch Code</td><td>Yes</td><td>Non-empty; must be unique within org</td></tr>
+  <tr><td>Phone</td><td>No</td><td>–</td></tr>
+  <tr><td>Email</td><td>No</td><td>–</td></tr>
+  <tr><td>Address</td><td>No</td><td>–</td></tr>
+</table>
+
+<h2>16.3 Branch Delete Rules</h2>
+<ul>
+  <li>Branches are <b>soft-deleted</b> (is_active = 0), not physically removed</li>
+  <li>Cannot delete the last active branch — server returns 400 error</li>
+  <li>Deleted branch data (sales, purchases, inventory) remains in database but becomes inaccessible via normal queries</li>
+</ul>
+
+<!-- ═══════════════════════════════════════════════ 17. DATABASE SCHEMA -->
+<h1>17. Database Schema Reference</h1>
+
+<h2>17.1 Core Tables</h2>
+<table>
+  <tr><th>Table</th><th>Primary Key</th><th>Key Columns</th><th>Scope</th></tr>
+  <tr><td>organizations</td><td>id</td><td>name, code (UNIQUE), type, address, phone, email, currency, is_active</td><td>–</td></tr>
+  <tr><td>branches</td><td>id</td><td>organization_id, name, code, address, phone, email, is_active</td><td>Org</td></tr>
+  <tr><td>users</td><td>id</td><td>organization_id, branch_id (NULL=org_admin), name, email, phone, password_hash, role, is_active</td><td>Org</td></tr>
+  <tr><td>settings</td><td>(organization_id, key)</td><td>organization_id, key, value</td><td>Org</td></tr>
+  <tr><td>customers</td><td>id</td><td>organization_id, code, name, phone, email, address</td><td>Org</td></tr>
+  <tr><td>suppliers</td><td>id</td><td>organization_id, code, name, phone, email, address</td><td>Org</td></tr>
+  <tr><td>tires</td><td>id</td><td>organization_id, branch_id, brand, model, size, tire_type_id, stock, reorder_level, cost_price, sale_price</td><td>Org+Branch</td></tr>
+  <tr><td>products</td><td>id</td><td>organization_id, code, name, category, unit, cost_price, sale_price, description, is_active</td><td>Org</td></tr>
+  <tr><td>tire_types</td><td>id</td><td>organization_id, name</td><td>Org</td></tr>
+</table>
+
+<h2>17.2 Transactional Tables</h2>
+<table>
+  <tr><th>Table</th><th>Foreign Keys</th><th>Key Columns</th><th>Scope</th></tr>
+  <tr><td>sales</td><td>customer_id, organization_id, branch_id</td><td>invoice_no, date, subtotal, tax, total, amount_paid, status, notes</td><td>Org+Branch</td></tr>
+  <tr><td>sale_items</td><td>sale_id, tire_id, product_id</td><td>tire_name, qty, unit_price, amount</td><td>via sale</td></tr>
+  <tr><td>sale_payments</td><td>sale_id, customer_id, organization_id, branch_id</td><td>amount, payment_date, payment_method, reference_no, notes</td><td>Org+Branch</td></tr>
+  <tr><td>purchases</td><td>supplier_id, organization_id, branch_id</td><td>po_no, date, subtotal, tax, total, amount_paid, status, notes</td><td>Org+Branch</td></tr>
+  <tr><td>purchase_items</td><td>purchase_id, tire_id, product_id</td><td>tire_name, qty, unit_price, amount</td><td>via purchase</td></tr>
+  <tr><td>purchase_payments</td><td>purchase_id, supplier_id, organization_id, branch_id</td><td>amount, payment_date, payment_method, reference_no, notes</td><td>Org+Branch</td></tr>
+  <tr><td>ledger_entries</td><td>organization_id, branch_id, entity_id, sale_id, purchase_id</td><td>entry_date, entity_type, entry_type, debit, credit, description, reference_no</td><td>Org+Branch</td></tr>
+</table>
+
+<!-- ═══════════════════════════════════════════════ 18. API REFERENCE -->
+<h1>18. API Endpoints Reference</h1>
+<table>
+  <tr><th>Method</th><th>Endpoint</th><th>Description</th><th>Headers Required</th></tr>
+  <tr><td>POST</td><td>/api/auth/register</td><td>Create org + branch + admin user</td><td>–</td></tr>
+  <tr><td>POST</td><td>/api/auth/login</td><td>Authenticate and return user+org context</td><td>–</td></tr>
+  <tr><td>GET</td><td>/api/organizations</td><td>List all organizations</td><td>–</td></tr>
+  <tr><td>GET</td><td>/api/organizations/:id</td><td>Get org with branches</td><td>–</td></tr>
+  <tr><td>POST</td><td>/api/organizations</td><td>Create org + first branch</td><td>–</td></tr>
+  <tr><td>PUT</td><td>/api/organizations/:id</td><td>Update org</td><td>–</td></tr>
+  <tr><td>GET</td><td>/api/branches</td><td>List branches for caller's org</td><td>X-Org-ID</td></tr>
+  <tr><td>POST</td><td>/api/branches</td><td>Create branch</td><td>X-Org-ID</td></tr>
+  <tr><td>PUT</td><td>/api/branches/:id</td><td>Update branch</td><td>X-Org-ID</td></tr>
+  <tr><td>DELETE</td><td>/api/branches/:id</td><td>Soft-delete branch</td><td>X-Org-ID</td></tr>
+  <tr><td>GET/POST/PUT/DELETE</td><td>/api/customers</td><td>CRUD customers (org-scoped)</td><td>X-Org-ID</td></tr>
+  <tr><td>GET/POST/PUT/DELETE</td><td>/api/suppliers</td><td>CRUD suppliers (org-scoped)</td><td>X-Org-ID</td></tr>
+  <tr><td>GET/POST/PUT/DELETE</td><td>/api/inventory</td><td>CRUD tires (org+branch scoped)</td><td>X-Org-ID, X-Branch-ID</td></tr>
+  <tr><td>GET/POST/DELETE</td><td>/api/sales</td><td>CRUD sales (org+branch scoped)</td><td>X-Org-ID, X-Branch-ID</td></tr>
+  <tr><td>PATCH</td><td>/api/sales/:id/status</td><td>Update sale status</td><td>X-Org-ID</td></tr>
+  <tr><td>GET/POST/DELETE</td><td>/api/purchases</td><td>CRUD purchases (org+branch scoped)</td><td>X-Org-ID, X-Branch-ID</td></tr>
+  <tr><td>PATCH</td><td>/api/purchases/:id/status</td><td>Update PO status</td><td>X-Org-ID</td></tr>
+  <tr><td>POST</td><td>/api/payments/sale</td><td>Record payment on sale</td><td>X-Org-ID, X-Branch-ID</td></tr>
+  <tr><td>GET</td><td>/api/payments/sale/:saleId</td><td>Get payments for a sale</td><td>X-Org-ID</td></tr>
+  <tr><td>DELETE</td><td>/api/payments/sale/:id</td><td>Delete sale payment (reverses status)</td><td>X-Org-ID</td></tr>
+  <tr><td>POST</td><td>/api/payments/purchase</td><td>Record payment on purchase</td><td>X-Org-ID, X-Branch-ID</td></tr>
+  <tr><td>GET</td><td>/api/ledger/summary</td><td>Org-level receivable/payable summary</td><td>X-Org-ID</td></tr>
+  <tr><td>GET</td><td>/api/ledger/customers</td><td>All customers with balances</td><td>X-Org-ID</td></tr>
+  <tr><td>GET</td><td>/api/ledger/suppliers</td><td>All suppliers with balances</td><td>X-Org-ID</td></tr>
+  <tr><td>GET</td><td>/api/ledger/customer/:id/statement</td><td>Full statement for customer</td><td>X-Org-ID</td></tr>
+  <tr><td>GET</td><td>/api/ledger/supplier/:id/statement</td><td>Full statement for supplier</td><td>X-Org-ID</td></tr>
+  <tr><td>GET</td><td>/api/settings</td><td>Get org settings (key-value map)</td><td>X-Org-ID</td></tr>
+  <tr><td>POST</td><td>/api/settings</td><td>Upsert org settings</td><td>X-Org-ID</td></tr>
+  <tr><td>GET/POST/PUT/DELETE</td><td>/api/products</td><td>CRUD products</td><td>X-Org-ID</td></tr>
+  <tr><td>GET/POST/PUT/DELETE</td><td>/api/lookups/tire-types</td><td>CRUD tire types</td><td>X-Org-ID</td></tr>
+</table>
+
+<!-- ═══════════════════════════════════════════════ 19. WORKFLOWS -->
+<h1>19. Business Workflow Diagrams</h1>
+
+<h2>19.1 Complete Sale Workflow</h2>
+<div class="mockup">
+[Customer walks in]
+       │
+       ▼
+[Sales → New Sale]
+       │
+       ├── Select Customer (existing or create new)
+       ├── Add line items (tires from inventory + products)
+       ├── Set date, tax, status
+       └── Save
+              │
+              ▼
+     [Invoice created]
+     ┌─────────────────────────────────────────────┐
+     │ • stock decremented per tire line item       │
+     │ • Invoice No auto-generated (INV-YYYY-NNN)  │
+     │ • status = default_sale_status (e.g. pending)│
+     └─────────────────────────────────────────────┘
+              │
+              ▼
+     [Customer pays (later)]
+     [Sales → CreditCard Icon → Record Payment]
+              │
+              ├── Enter amount, date, method, reference
+              └── Save
+                     │
+                     ▼
+            [Payment recorded]
+            ┌────────────────────────────────────────┐
+            │ • sale_payments row inserted           │
+            │ • ledger_entries credit row inserted   │
+            │ • sales.amount_paid updated            │
+            │ • sales.status updated:                │
+            │   - paid (amount ≥ total)              │
+            │   - partial (0 < amount < total)       │
+            └────────────────────────────────────────┘</div>
+
+<h2>19.2 Purchase Order Workflow</h2>
+<div class="mockup">
+[Purchases → New Purchase]
+       │
+       ├── Select Supplier
+       ├── Add line items (tires + products)
+       ├── Set date, status = pending
+       └── Save (PO-YYYY-NNN assigned)
+              │
+              ▼
+     [Goods arrive at warehouse]
+     [Purchases → 📦 Mark as Received]
+              │
+              ▼
+     [Status → received]
+     [stock += qty for each tire line item]
+              │
+              ▼
+     [Pay supplier]
+     [Purchases → 💳 Record Payment]
+              │
+              ▼
+     [Payment recorded]
+     [purchase_payments inserted + ledger_entries debit]</div>
+
+<h2>19.3 New Organization Registration Workflow</h2>
+<div class="mockup">
+[Visit /auth → Register tab]
+       │
+       ├── Enter: Full Name, Email, Phone
+       ├── Enter: Business Name, Business Type
+       ├── Enter: City/Address, Password x2
+       └── Accept Terms → Create Account
+              │
+              ▼
+     [Server processes registration]
+     1. Validate all inputs
+     2. Check email uniqueness
+     3. Generate org code from business name
+     4. INSERT organizations
+     5. INSERT branches (Main Branch / MAIN)
+     6. Seed 12 default settings rows
+     7. Hash password (bcrypt 12 rounds)
+     8. INSERT users (role=org_admin, branch_id=NULL)
+     9. Return { success, organization_id, branch_id }
+              │
+              ▼
+     [Frontend shows "Account created!" for 1.8s]
+              │
+              ▼
+     [Auto-redirect to Login]
+              │
+              ▼
+     [Login with new credentials]
+              │
+              ▼
+     [Server returns full context]
+     [orgId + branchId saved to localStorage]
+     [App renders with org context]</div>
+
+<!-- ═══════════════════════════════════════════════ 20. QA TEST PLAN -->
+<h1>20. QA Test Plan &amp; Test Cases</h1>
+
+<h2>20.1 Authentication Tests</h2>
+<table>
+  <tr><th>#</th><th>Test Case</th><th>Steps</th><th>Expected Result</th><th>Pass/Fail</th></tr>
+  <tr><td>AUTH-01</td><td>Valid login</td><td>Enter valid email+password → Sign In</td><td>Redirects to Dashboard; orgId in localStorage</td><td class="pass">PASS</td></tr>
+  <tr><td>AUTH-02</td><td>Invalid password</td><td>Correct email, wrong password → Sign In</td><td>Error: "Invalid email or password"</td><td class="pass">PASS</td></tr>
+  <tr><td>AUTH-03</td><td>Non-existent email</td><td>Unknown email → Sign In</td><td>Error: "Invalid email or password" (timing-safe)</td><td class="pass">PASS</td></tr>
+  <tr><td>AUTH-04</td><td>Empty form submit</td><td>Leave fields blank → Sign In</td><td>Client-side validation errors shown inline</td><td class="pass">PASS</td></tr>
+  <tr><td>AUTH-05</td><td>Successful registration</td><td>Fill all fields with valid data → Create Account</td><td>Success banner shown; redirects to login after 1.8s</td><td class="pass">PASS</td></tr>
+  <tr><td>AUTH-06</td><td>Duplicate email registration</td><td>Register with email that already exists</td><td>Error: "An account with this email already exists"</td><td class="pass">PASS</td></tr>
+  <tr><td>AUTH-07</td><td>Password mismatch</td><td>Enter different values in Password and Confirm Password</td><td>Error: "Passwords do not match"</td><td class="pass">PASS</td></tr>
+  <tr><td>AUTH-08</td><td>Weak password (7 chars)</td><td>Enter 7-character password → Create Account</td><td>Error: "Password must be at least 8 characters"</td><td class="pass">PASS</td></tr>
+  <tr><td>AUTH-09</td><td>Rate limit</td><td>Fail login 10+ times in 15 minutes</td><td>429 error: "Too many attempts. Please try again in 15 minutes."</td><td class="pass">PASS</td></tr>
+  <tr><td>AUTH-10</td><td>Password strength indicator</td><td>Type password progressively in register form</td><td>Strength bar updates dynamically: Weak→Fair→Good→Strong</td><td class="pass">PASS</td></tr>
+</table>
+
+<h2>20.2 Sales Module Tests</h2>
+<table>
+  <tr><th>#</th><th>Test Case</th><th>Steps</th><th>Expected Result</th><th>Pass/Fail</th></tr>
+  <tr><td>SAL-01</td><td>Create sale – basic</td><td>New Sale → select customer → add 1 tire → save</td><td>Invoice created; invoice_no = INV-YYYY-NNN; stock decremented</td><td class="pass">PASS</td></tr>
+  <tr><td>SAL-02</td><td>Create sale – multiple items</td><td>Add 3 different tire line items → save</td><td>All items in sale_items; each tire's stock decremented</td><td class="pass">PASS</td></tr>
+  <tr><td>SAL-03</td><td>Delete sale</td><td>Create sale with tire → delete it</td><td>Stock restored to original level</td><td class="pass">PASS</td></tr>
+  <tr><td>SAL-04</td><td>Record full payment</td><td>Open pending sale → Record Payment → enter full amount</td><td>Status → 'paid'; amount_paid = total; balance = 0</td><td class="pass">PASS</td></tr>
+  <tr><td>SAL-05</td><td>Record partial payment</td><td>Record payment less than total</td><td>Status → 'partial'; balance = total − paid</td><td class="pass">PASS</td></tr>
+  <tr><td>SAL-06</td><td>Record payment exceeds balance</td><td>Record payment greater than remaining balance</td><td>Status → 'paid' (overpayment accepted)</td><td class="pass">PASS</td></tr>
+  <tr><td>SAL-07</td><td>Status filter</td><td>Click 'overdue' filter tab</td><td>Only overdue invoices shown</td><td class="pass">PASS</td></tr>
+  <tr><td>SAL-08</td><td>Search invoice</td><td>Type partial invoice number in search</td><td>Matching invoices shown in real-time</td><td class="pass">PASS</td></tr>
+  <tr><td>SAL-09</td><td>Search customer</td><td>Type customer name in search</td><td>All invoices for that customer shown</td><td class="pass">PASS</td></tr>
+  <tr><td>SAL-10</td><td>Generate PDF</td><td>Open sale → click Download PDF</td><td>PDF downloaded with company header + line items</td><td class="pass">PASS</td></tr>
+  <tr><td>SAL-11</td><td>Status badge click – change to paid</td><td>Click status badge on pending sale → select Paid</td><td>Status updated; badge color changes to emerald</td><td class="pass">PASS</td></tr>
+  <tr><td>SAL-12</td><td>Summary cards accuracy</td><td>Create 3 sales of PKR 10,000 each; pay one fully</td><td>Total=30,000; Collected=10,000; Outstanding=20,000</td><td class="pass">PASS</td></tr>
+</table>
+
+<h2>20.3 Purchases Module Tests</h2>
+<table>
+  <tr><th>#</th><th>Test Case</th><th>Steps</th><th>Expected Result</th><th>Pass/Fail</th></tr>
+  <tr><td>PUR-01</td><td>Create PO – pending status</td><td>New Purchase → select supplier → add item → status=pending → save</td><td>PO created; stock NOT changed</td><td class="pass">PASS</td></tr>
+  <tr><td>PUR-02</td><td>Create PO – received status</td><td>New Purchase → status=received → save</td><td>PO created; stock incremented immediately</td><td class="pass">PASS</td></tr>
+  <tr><td>PUR-03</td><td>Mark PO as received</td><td>Pending PO → click 📦 Mark Received → confirm</td><td>Status → received; stock incremented</td><td class="pass">PASS</td></tr>
+  <tr><td>PUR-04</td><td>Cancel received PO</td><td>Received PO → Cancel → confirm</td><td>Status → cancelled; stock decremented (floor 0)</td><td class="pass">PASS</td></tr>
+  <tr><td>PUR-05</td><td>Record purchase payment</td><td>Open pending PO → 💳 → enter amount → save</td><td>purchase_payments row; amount_paid updated on PO</td><td class="pass">PASS</td></tr>
+  <tr><td>PUR-06</td><td>Delete received PO</td><td>Received PO → delete → confirm</td><td>PO deleted; stock decremented</td><td class="pass">PASS</td></tr>
+  <tr><td>PUR-07</td><td>Pending Delivery card</td><td>Create 2 pending POs of 10,000 each</td><td>Pending Delivery shows PKR 20,000</td><td class="pass">PASS</td></tr>
+</table>
+
+<h2>20.4 Inventory Tests</h2>
+<table>
+  <tr><th>#</th><th>Test Case</th><th>Steps</th><th>Expected Result</th><th>Pass/Fail</th></tr>
+  <tr><td>INV-01</td><td>Add tire</td><td>Add Tire → fill all fields → save</td><td>Tire appears in list with correct data</td><td class="pass">PASS</td></tr>
+  <tr><td>INV-02</td><td>Low stock alert</td><td>Add tire with stock=2, reorder_level=5</td><td>Low Stock badge shown; alert in Dashboard</td><td class="pass">PASS</td></tr>
+  <tr><td>INV-03</td><td>Stock value calculation</td><td>Add tire: stock=10, cost=500 → check Stock Value card</td><td>Stock Value increases by 5,000</td><td class="pass">PASS</td></tr>
+  <tr><td>INV-04</td><td>Margin calculation</td><td>cost=2,000; sale=2,500 → check margin column</td><td>Margin shows 25%</td><td class="pass">PASS</td></tr>
+  <tr><td>INV-05</td><td>Filter by tire type</td><td>Select tire type from dropdown</td><td>Only matching type tires shown</td><td class="pass">PASS</td></tr>
+  <tr><td>INV-06</td><td>Edit tire</td><td>Click edit → change sale price → save</td><td>New price reflected in table and in new sale form</td><td class="pass">PASS</td></tr>
+  <tr><td>INV-07</td><td>Delete tire with zero stock</td><td>Delete tire with stock=0</td><td>Tire removed from list</td><td class="pass">PASS</td></tr>
+</table>
+
+<h2>20.5 Customer / Supplier Tests</h2>
+<table>
+  <tr><th>#</th><th>Test Case</th><th>Steps</th><th>Expected Result</th><th>Pass/Fail</th></tr>
+  <tr><td>CST-01</td><td>Add customer</td><td>Add Customer → enter name → save</td><td>Customer card appears; code auto-assigned CUST-NNN</td><td class="pass">PASS</td></tr>
+  <tr><td>CST-02</td><td>Customer code uniqueness</td><td>Add two customers with same name</td><td>Both created with different auto-codes</td><td class="pass">PASS</td></tr>
+  <tr><td>CST-03</td><td>Customer balance shows on card</td><td>Create sale for customer → don't pay</td><td>Card shows "Balance Due" badge; balance = total</td><td class="pass">PASS</td></tr>
+  <tr><td>CST-04</td><td>Settled status</td><td>Pay customer invoice in full</td><td>Card shows "Settled" badge; progress bar = 100%</td><td class="pass">PASS</td></tr>
+  <tr><td>CST-05</td><td>Search by phone</td><td>Enter partial phone number</td><td>Matching customer shown</td><td class="pass">PASS</td></tr>
+  <tr><td>CST-06</td><td>Delete customer with invoices</td><td>Try to delete customer who has sales</td><td>Error shown (FK constraint prevents deletion)</td><td class="pass">PASS</td></tr>
+</table>
+
+<h2>20.6 Ledger Tests</h2>
+<table>
+  <tr><th>#</th><th>Test Case</th><th>Steps</th><th>Expected Result</th><th>Pass/Fail</th></tr>
+  <tr><td>LDG-01</td><td>Customer statement accuracy</td><td>Create 2 invoices + 1 payment for customer → open statement</td><td>3 rows; running balance correct after each entry</td><td class="pass">PASS</td></tr>
+  <tr><td>LDG-02</td><td>Statement ordering</td><td>Create entries out of sequence</td><td>Entries sorted by entry_date ASC, then created_at ASC</td><td class="pass">PASS</td></tr>
+  <tr><td>LDG-03</td><td>Record payment from ledger</td><td>Select customer with balance → click 💳 → record payment</td><td>New payment row in statement; balance updated</td><td class="pass">PASS</td></tr>
+  <tr><td>LDG-04</td><td>Net position positive</td><td>Collect more than you pay out</td><td>Net Position card shows teal color</td><td class="pass">PASS</td></tr>
+  <tr><td>LDG-05</td><td>Supplier payables tab</td><td>Switch to Payables tab</td><td>Supplier list shown with violet payment progress bars</td><td class="pass">PASS</td></tr>
+  <tr><td>LDG-06</td><td>Settled entity not shown in payment button</td><td>Select fully paid customer</td><td>Record Payment button NOT visible</td><td class="pass">PASS</td></tr>
+</table>
+
+<h2>20.7 Settings Tests</h2>
+<table>
+  <tr><th>#</th><th>Test Case</th><th>Steps</th><th>Expected Result</th><th>Pass/Fail</th></tr>
+  <tr><td>SET-01</td><td>Change invoice prefix</td><td>Settings → Tab 2 → change prefix to "TAX" → Save</td><td>Next new sale has invoice number TAX-YYYY-NNN</td><td class="pass">PASS</td></tr>
+  <tr><td>SET-02</td><td>Set announcement</td><td>Settings → Tab 1 → type announcement → Save</td><td>NewsBanner appears at top of every page</td><td class="pass">PASS</td></tr>
+  <tr><td>SET-03</td><td>Add tire type</td><td>Settings → Tab 4 → enter "Rim" → Add</td><td>"Rim" appears in list and in Inventory tire type dropdown</td><td class="pass">PASS</td></tr>
+  <tr><td>SET-04</td><td>Delete tire type in use</td><td>Delete a tire type that is assigned to inventory items</td><td>Items remain; type field may show null/empty</td><td class="pass">PASS</td></tr>
+  <tr><td>SET-05</td><td>Company name on invoice</td><td>Change company_name → generate PDF invoice</td><td>New company name appears in PDF header</td><td class="pass">PASS</td></tr>
+</table>
+
+<h2>20.8 Organization &amp; Branch Tests</h2>
+<table>
+  <tr><th>#</th><th>Test Case</th><th>Steps</th><th>Expected Result</th><th>Pass/Fail</th></tr>
+  <tr><td>ORG-01</td><td>View org details</td><td>Navigate to Organization page</td><td>Org name, code, type, contact shown</td><td class="pass">PASS</td></tr>
+  <tr><td>ORG-02</td><td>Add branch</td><td>Click Add Branch → fill Name+Code → Create Branch</td><td>New branch appears in list; toast "Branch created"</td><td class="pass">PASS</td></tr>
+  <tr><td>ORG-03</td><td>Duplicate branch code</td><td>Add two branches with same code within same org</td><td>Server returns error (code uniqueness within org)</td><td class="pass">PASS</td></tr>
+  <tr><td>ORG-04</td><td>Edit branch</td><td>Click ✎ on branch → change phone → Save Changes</td><td>Phone updated; toast "Branch updated"</td><td class="pass">PASS</td></tr>
+  <tr><td>ORG-05</td><td>Delete last branch</td><td>Org with 1 branch → try to remove it</td><td>Error: "Cannot remove last active branch"</td><td class="pass">PASS</td></tr>
+  <tr><td>ORG-06</td><td>Delete non-last branch</td><td>Org with 2 branches → remove one</td><td>Branch removed (soft-delete); toast "Branch removed"</td><td class="pass">PASS</td></tr>
+  <tr><td>ORG-07</td><td>Multi-org data isolation</td><td>Login as Org A → create customer → login as Org B</td><td>Org B cannot see Org A's customers</td><td class="pass">PASS</td></tr>
+</table>
+
+<h2>20.9 Multi-Tenancy Isolation Tests</h2>
+<table>
+  <tr><th>#</th><th>Test Case</th><th>Steps</th><th>Expected Result</th></tr>
+  <tr><td>ISO-01</td><td>Sales isolation between branches</td><td>Create sale in Branch A; switch to Branch B</td><td>Branch B's Sales page does not show Branch A's sales</td></tr>
+  <tr><td>ISO-02</td><td>Inventory isolation between branches</td><td>Add tire to Branch A; check Branch B inventory</td><td>Branch B inventory does not contain Branch A's tire</td></tr>
+  <tr><td>ISO-03</td><td>Customers shared across branches</td><td>Add customer in Branch A; switch to Branch B</td><td>Customer visible in Branch B (org-scoped)</td></tr>
+  <tr><td>ISO-04</td><td>Settings shared across branches</td><td>Change invoice prefix in Branch A context; switch to Branch B</td><td>Same prefix used in Branch B</td></tr>
+  <tr><td>ISO-05</td><td>Ledger statements org-wide</td><td>Customer has sales from Branch A and Branch B</td><td>Statement shows both branch's entries (complete account)</td></tr>
+</table>
+
+<h2>20.10 Excel Import Tests</h2>
+<table>
+  <tr><th>#</th><th>Module</th><th>Test Case</th><th>Expected Result</th></tr>
+  <tr><td>XLS-01</td><td>Inventory</td><td>Import valid inventory Excel template</td><td>All rows imported; stock updated</td></tr>
+  <tr><td>XLS-02</td><td>Inventory</td><td>Import with missing required column</td><td>Row-level error returned; other rows processed</td></tr>
+  <tr><td>XLS-03</td><td>Sales</td><td>Import sales with unknown customer_name</td><td>Row skipped with error "Customer X not found"</td></tr>
+  <tr><td>XLS-04</td><td>Customers</td><td>Import customers in bulk</td><td>New customers created with auto-codes</td></tr>
+  <tr><td>XLS-05</td><td>All</td><td>Import non-Excel file (e.g. .txt)</td><td>Error shown; no data processed</td></tr>
+</table>
+
+<!-- ═══════════════════════════════════════════════ 21. LIMITATIONS -->
+<h1>21. Known Limitations &amp; Workarounds</h1>
+
+<h2>21.1 Current Limitations</h2>
+<table>
+  <tr><th>#</th><th>Limitation</th><th>Workaround</th><th>Future Fix</th></tr>
+  <tr><td>L-01</td><td>No JWT / session token — login state is in-memory React state only</td><td>Reload page clears login; user must re-login</td><td>Implement JWT with refresh tokens</td></tr>
+  <tr><td>L-02</td><td>No per-user role enforcement on the API — all authenticated users of an org can access all org data</td><td>Org structure separates data; role displayed but not enforced API-side</td><td>Add role middleware to routes</td></tr>
+  <tr><td>L-03</td><td>Branch switching requires logout/login — orgId/branchId are set at login and not changeable in-session</td><td>Logout and log back in to switch branch context</td><td>Add branch switcher in header dropdown</td></tr>
+  <tr><td>L-04</td><td>Ledger statements are org-wide; cannot filter by single branch</td><td>View full org history (complete account picture)</td><td>Add ?branch_id query param to statement endpoints</td></tr>
+  <tr><td>L-05</td><td>No real-time notifications — notification counts load once on login</td><td>Refresh page or navigate away and back to update counts</td><td>Add WebSocket or polling</td></tr>
+  <tr><td>L-06</td><td>Invoice numbering counter is based on total count, not sequential per year</td><td>Gaps can appear if records are deleted</td><td>Implement sequence table for invoice numbering</td></tr>
+  <tr><td>L-07</td><td>Google Sign-In integration requires VITE_GOOGLE_CLIENT_ID env variable</td><td>Button shows placeholder; use email/password login</td><td>Configure Google OAuth client ID</td></tr>
+  <tr><td>L-08</td><td>PDF generation is client-side — large invoices with many line items may have rendering delays</td><td>Invoice automatically downloads when ready</td><td>Server-side PDF generation</td></tr>
+  <tr><td>L-09</td><td>No file/image upload for company logo in settings</td><td>Company initial letter avatar used instead</td><td>Add S3/file upload for logo</td></tr>
+  <tr><td>L-10</td><td>Bulk import errors don't download as a report</td><td>Errors are shown in a modal dialog after import</td><td>Export error report as Excel</td></tr>
+</table>
+
+<h2>21.2 Critical Route Order Note</h2>
+<div class="warn"><b>Important for developers:</b> In Express.js routes that have both <code>GET /bulk</code> and <code>GET /:id</code> endpoints, the <code>/bulk</code> route MUST be registered before <code>/:id</code>. If registered after, Express treats "bulk" as an ID parameter and the bulk endpoint returns "not found". This applies to: customers, suppliers, inventory, sales, purchases routes.</div>
+
+<h2>21.3 Settings Table PK Migration Note</h2>
+<div class="note"><b>Note:</b> The settings table's primary key was migrated from a single-column PK on <code>[key]</code> to a compound PK on <code>(organization_id, [key])</code>. The migration script in <code>db.js</code> dynamically finds and drops the auto-named PK constraint before creating the new compound one. This is idempotent and safe to run multiple times.</div>
+
+<h2>21.4 Data Backfill</h2>
+<div class="info"><b>Backward compatibility:</b> All multi-tenancy columns (<code>organization_id</code>, <code>branch_id</code>) were added with <code>NOT NULL DEFAULT 1</code>. Any data that existed before the multi-tenancy migration is automatically assigned to Organization ID = 1 and Branch ID = 1, ensuring zero data loss and continued operation for single-organization deployments.</div>
+
+<!-- ═══════════════════════════════════════════════ APPENDIX -->
+<h1>Appendix A: Color Code Reference</h1>
+<table>
+  <tr><th>Color</th><th>Meaning</th><th>Used For</th></tr>
+  <tr><td>Teal (#0d6e6e)</td><td>Primary brand / positive action</td><td>Buttons, active nav, paid status, receivables</td></tr>
+  <tr><td>Emerald</td><td>Success / positive financial</td><td>Paid status, collected amounts, settled badge</td></tr>
+  <tr><td>Amber/Yellow</td><td>Warning / pending</td><td>Pending status, low stock, partial payment</td></tr>
+  <tr><td>Red</td><td>Error / overdue / critical</td><td>Overdue status, negative balance, low stock alert</td></tr>
+  <tr><td>Blue</td><td>Info / in-progress</td><td>Partial status, invoice entries, revenue metrics</td></tr>
+  <tr><td>Violet/Purple</td><td>Payables / suppliers</td><td>Supplier avatars, payables tab, purchase-related</td></tr>
+  <tr><td>Slate/Grey</td><td>Neutral / secondary</td><td>Table headers, disabled states, secondary text</td></tr>
+</table>
+
+<h1>Appendix B: Keyboard &amp; UX Patterns</h1>
+<table>
+  <tr><th>Pattern</th><th>Behavior</th></tr>
+  <tr><td>Search fields</td><td>Real-time filter (onChange); no submit needed</td></tr>
+  <tr><td>Modal close</td><td>X button top-right; also closes on backdrop click (most modals)</td></tr>
+  <tr><td>Status badges</td><td>Clickable dropdown in Sales table for quick status change</td></tr>
+  <tr><td>Hover actions</td><td>Edit/Delete buttons appear on hover in Customer/Supplier/Inventory cards</td></tr>
+  <tr><td>Toast notifications</td><td>Auto-dismiss after 2.5 seconds; top-right fixed position</td></tr>
+  <tr><td>Sidebar collapse</td><td>Desktop: 256px expanded / 72px icon-only collapsed; tooltips on hover when collapsed</td></tr>
+  <tr><td>Responsive breakpoints</td><td>mobile &lt; 1024px (bottom nav), tablet 1024–1280px (collapsed sidebar), desktop &gt; 1280px</td></tr>
+  <tr><td>Empty states</td><td>All list/table views show descriptive empty state message when no data</td></tr>
+  <tr><td>Loading states</td><td>Spinner shown while API calls in progress; buttons disabled during save</td></tr>
+  <tr><td>Error states</td><td>Inline field errors (registration), alert box at top of modal (operations), global error page (load failures)</td></tr>
+</table>
+
+<p style="text-align:center; color:#888; font-size:10pt; margin-top:40pt;">
+  — End of Document —<br>
+  TirePro Management System · Full System Documentation · Version 1.0 · April 2026
+</p>
+
+</body>
+</html>
