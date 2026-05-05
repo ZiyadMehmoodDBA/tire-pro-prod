@@ -2,6 +2,7 @@ const express    = require('express');
 const cors       = require('cors');
 const helmet     = require('helmet');
 const rateLimit  = require('express-rate-limit');
+const path       = require('path');
 const { setupDatabase } = require('./db');
 const { requireAuth } = require('./middleware/auth');
 const { validateBranchContext } = require('./middleware/validateBranchContext');
@@ -11,6 +12,9 @@ const { initDemoCleanupJob }    = require('./jobs/demoCleanup');
 
 const app  = express();
 const PORT = 3001;
+
+// Trust Cloudflare / reverse-proxy hops so rate-limiter uses real client IP
+app.set('trust proxy', 1);
 
 // ── Security headers ──────────────────────────────────────────────────────────
 app.use(helmet({
@@ -104,6 +108,15 @@ app.use('/api/catalog',       require('./routes/catalog'));
 app.use('/api/fitments',      require('./routes/fitments'));
 
 app.get('/api/health', (req, res) => res.json({ status: 'ok', time: new Date() }));
+
+// ── Production static file serving ────────────────────────────────────────────
+if (process.env.NODE_ENV === 'production') {
+  const distPath = path.join(__dirname, '..', 'dist');
+  app.use('/tire-pro', express.static(distPath));
+  app.get('/', (req, res) => res.redirect('/tire-pro'));
+  app.get('/tire-pro', (req, res) => res.sendFile(path.join(distPath, 'index.html')));
+  app.get('/tire-pro/*splat', (req, res) => res.sendFile(path.join(distPath, 'index.html')));
+}
 
 // ── Global error handler ──────────────────────────────────────────────────────
 app.use((err, req, res, next) => {

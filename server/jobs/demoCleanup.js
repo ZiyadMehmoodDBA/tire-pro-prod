@@ -54,13 +54,13 @@ async function deleteTransactions(pool, orgId) {
     WHERE p.organization_id = @org_id
   `);
   await pool.request().input('org_id', sql.Int, orgId).query(
+    'DELETE FROM ledger_entries WHERE organization_id = @org_id'
+  );
+  await pool.request().input('org_id', sql.Int, orgId).query(
     'DELETE FROM sales     WHERE organization_id = @org_id'
   );
   await pool.request().input('org_id', sql.Int, orgId).query(
     'DELETE FROM purchases WHERE organization_id = @org_id'
-  );
-  await pool.request().input('org_id', sql.Int, orgId).query(
-    'DELETE FROM ledger_entries WHERE organization_id = @org_id'
   );
   // Revert customer/supplier balances to 0 (they drifted from demo activity)
   await pool.request().input('org_id', sql.Int, orgId).query(

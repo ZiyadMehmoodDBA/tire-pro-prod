@@ -88,7 +88,8 @@ export default function App() {
     api.auth.refresh()
       .then(({ accessToken, user: u }: { accessToken: string; user: AuthUser }) => {
         setAccessToken(accessToken);
-        const branchId = u.branch_id ?? Number(localStorage.getItem('branchId') ?? 1);
+        // For org_admin (branch_id null), pick first branch from org — never use stale localStorage
+        const branchId = u.branch_id ?? u.branches?.[0]?.id ?? 1;
         localStorage.setItem('orgId',    String(u.organization_id || 1));
         localStorage.setItem('branchId', String(branchId));
         setUser(u);

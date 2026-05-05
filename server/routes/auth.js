@@ -257,6 +257,10 @@ router.post('/refresh', async (req, res) => {
       { expiresIn: JWT_EXPIRY }
     );
 
+    const branchRes = await pool.request()
+      .input('org_id', sql.Int, row.organization_id)
+      .query('SELECT id, name, code FROM branches WHERE organization_id = @org_id AND is_active = 1 ORDER BY name');
+
     res.json({
       accessToken,
       user: {
@@ -265,6 +269,7 @@ router.post('/refresh', async (req, res) => {
         role:            row.role,
         organization_id: row.organization_id,
         branch_id:       row.branch_id,
+        branches:        branchRes.recordset,
       },
     });
   } catch (err) {

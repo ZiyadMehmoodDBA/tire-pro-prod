@@ -39,6 +39,8 @@ export function clearTokens(): void {
   _accessToken = null;
   localStorage.removeItem(ACCESS_TOKEN_KEY);
   localStorage.removeItem(REFRESH_TOKEN_KEY);
+  localStorage.removeItem('orgId');
+  localStorage.removeItem('branchId');
   sessionStorage.removeItem(REFRESH_TOKEN_KEY);
 }
 

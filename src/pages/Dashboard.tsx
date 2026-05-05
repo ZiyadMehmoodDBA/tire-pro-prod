@@ -33,11 +33,12 @@ export default function Dashboard() {
   const [sales,        setSales]        = useState<any[]>([]);
   const [purchases,    setPurchases]    = useState<any[]>([]);
   const [tires,        setTires]        = useState<any[]>([]);
-  const [tireTypeData, setTireTypeData] = useState<{ name: string; value: number; revenue: number; color: string }[]>([]);
-  const [finance,      setFinance]      = useState<any>(null);
-  const [dashStats,    setDashStats]    = useState<any>(null);
-  const [loading,      setLoading]      = useState(true);
-  const [refreshing,   setRefreshing]   = useState(false);
+  const [tireTypeData,    setTireTypeData]    = useState<{ name: string; value: number; revenue: number; color: string }[]>([]);
+  const [tireTypeLoading, setTireTypeLoading] = useState(true);
+  const [finance,         setFinance]         = useState<any>(null);
+  const [dashStats,       setDashStats]       = useState<any>(null);
+  const [loading,         setLoading]         = useState(true);
+  const [refreshing,      setRefreshing]      = useState(false);
 
   const fetchAll = async () => {
     setRefreshing(true);
@@ -66,6 +67,7 @@ export default function Dashboard() {
         color:   TYPE_COLORS[i % TYPE_COLORS.length],
       })));
     }
+    setTireTypeLoading(false);
 
     setLoading(false);
     setRefreshing(false);
@@ -337,7 +339,7 @@ export default function Dashboard() {
             )}
           </div>
 
-          {loading ? (
+          {tireTypeLoading ? (
             <div className="h-[160px] flex items-center justify-center">
               <div className="w-20 h-20 rounded-full border-4 border-slate-100 border-t-teal-500 animate-spin" />
             </div>
@@ -352,6 +354,7 @@ export default function Dashboard() {
                 <Pie
                   data={tireTypeData} cx="50%" cy="50%"
                   innerRadius={45} outerRadius={70} paddingAngle={3} dataKey="value"
+                  animationBegin={0} animationDuration={300}
                 >
                   {tireTypeData.map((entry, i) => <Cell key={i} fill={entry.color} />)}
                 </Pie>

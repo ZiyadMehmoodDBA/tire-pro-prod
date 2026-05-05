@@ -172,7 +172,7 @@ export default function Sidebar({
                             'w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-medium transition-all duration-150 group relative cursor-pointer',
                             isActive
                               ? 'bg-teal-500 text-white shadow-sm shadow-teal-200'
-                              : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900',
+                              : 'text-slate-600 hover:bg-teal-50 hover:text-teal-700 hover:shadow-sm',
                             collapsed && 'lg:justify-center lg:px-0 lg:py-3'
                           )}
                         >
@@ -182,7 +182,7 @@ export default function Sidebar({
                               size={17}
                               className={cn(
                                 'transition-colors',
-                                isActive ? 'text-white' : 'text-slate-400 group-hover:text-slate-600'
+                                isActive ? 'text-white' : 'text-slate-400 group-hover:text-teal-500'
                               )}
                             />
                             {count > 0 && (
@@ -237,7 +237,7 @@ export default function Sidebar({
               collapsed && 'lg:justify-center lg:px-0 lg:py-3',
               activePage === 'settings'
                 ? 'bg-teal-500 text-white shadow-sm shadow-teal-200'
-                : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+                : 'text-slate-600 hover:bg-teal-50 hover:text-teal-700 hover:shadow-sm'
             )}
           >
             <Settings
@@ -246,7 +246,7 @@ export default function Sidebar({
                 'flex-shrink-0',
                 activePage === 'settings'
                   ? 'text-white'
-                  : 'text-slate-400 group-hover:text-slate-600'
+                  : 'text-slate-400 group-hover:text-teal-500'
               )}
             />
             <span className={cn(collapsed && 'lg:hidden')}>Settings</span>
