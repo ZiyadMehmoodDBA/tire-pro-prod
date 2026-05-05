@@ -8,7 +8,6 @@ const { requireAuth } = require('./middleware/auth');
 const { validateBranchContext } = require('./middleware/validateBranchContext');
 const { blockDemo } = require('./middleware/demo');
 const { initCatalogScraperJob } = require('./jobs/catalogScraper');
-const { initDemoCleanupJob }    = require('./jobs/demoCleanup');
 
 const app  = express();
 const PORT = 3001;
@@ -130,7 +129,6 @@ app.use((err, req, res, next) => {
   try {
     await setupDatabase();
     await initCatalogScraperJob();
-    initDemoCleanupJob();
     app.listen(PORT, () => {
       console.log(`🚀 TirePro API running at http://localhost:${PORT}`);
     });
