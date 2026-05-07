@@ -170,6 +170,7 @@ export default function App() {
     localStorage.setItem('orgId',    String(payload.organization_id || 1));
     localStorage.setItem('branchId', String(branchId));
     const { accessToken: _at, refreshToken: _rt, rememberMe: _rm, ...userFields } = payload;
+    setActivePage('dashboard');
     setUser(userFields);
   };
 
