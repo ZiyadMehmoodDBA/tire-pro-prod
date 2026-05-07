@@ -16,6 +16,7 @@ import Ledger from './pages/Ledger';
 import Organizations from './pages/Organizations';
 import Services from './pages/Services';
 import TyreFitment from './pages/TyreFitment';
+import PriceLists from './pages/PriceLists';
 import BottomNav from './components/BottomNav';
 import NewsBanner from './components/NewsBanner';
 import Profile from './pages/Profile';
@@ -56,6 +57,7 @@ const allPages: Record<string, { title: string; subtitle: string; component: Rea
   organizations: { title: 'Organizations',         subtitle: 'Manage organizations and branches',             component: Organizations, adminOnly: true },
   reports:       { title: 'Reports & Analytics',   subtitle: 'Business performance insights',                 component: Reports },
   tyreFitment:   { title: 'Tyre Fitment Guide',    subtitle: 'Pakistan-market OEM tyre sizes by vehicle',    component: TyreFitment },
+  priceLists:    { title: 'Dealer Price Lists',    subtitle: 'BG dealer prices — import to inventory',       component: PriceLists },
   settings:      { title: 'Settings',              subtitle: 'Application configuration',                     component: Settings, adminOnly: true },
   auditlog:      { title: 'Audit Log',             subtitle: 'Track all changes across sales, inventory & products', component: AuditLog, adminOnly: true },
 };

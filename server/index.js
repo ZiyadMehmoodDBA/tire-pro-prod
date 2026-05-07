@@ -105,6 +105,7 @@ app.use('/api/audit',         require('./routes/audit'));
 app.use('/api/profile',       require('./routes/profile'));
 app.use('/api/catalog',       require('./routes/catalog'));
 app.use('/api/fitments',      require('./routes/fitments'));
+app.use('/api/price-lists',   require('./routes/priceLists'));
 
 app.get('/api/health', (req, res) => res.json({ status: 'ok', time: new Date() }));
 

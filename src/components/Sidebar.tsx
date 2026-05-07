@@ -1,7 +1,7 @@
 import {
   LayoutDashboard, ShoppingCart, Package, FileText,
   Users, Truck, BarChart2, Settings, ChevronLeft,
-  ChevronRight, Boxes, TrendingUp, LogOut, X, BookOpen, Building2, Wrench, ClipboardList, Car,
+  ChevronRight, Boxes, TrendingUp, LogOut, X, BookOpen, Building2, Wrench, ClipboardList, Car, Tag,
 } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { getCachedSettings } from '../lib/appSettings';
@@ -36,8 +36,9 @@ const navGroups: NavGroup[] = [
   {
     label: 'INVENTORY',
     items: [
-      { id: 'inventory', label: 'Inventory', icon: Boxes  },
-      { id: 'services',  label: 'Services',  icon: Wrench },
+      { id: 'inventory',  label: 'Inventory',   icon: Boxes  },
+      { id: 'services',   label: 'Services',    icon: Wrench },
+      { id: 'priceLists', label: 'Price Lists', icon: Tag    },
     ],
   },
   {

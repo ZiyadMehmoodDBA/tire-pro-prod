@@ -363,6 +363,14 @@ export const api = {
       }>(`/fitments/search?${qs}`);
     },
   },
+  priceLists: {
+    list:   ()                                                           => request<any[]>('/price-lists'),
+    items:  (id: number)                                                 => request<any[]>(`/price-lists/${id}/items`),
+    import: (id: number, data: { item_ids: number[]; margin: number }) =>
+      request<{ imported: number; updated: number }>(`/price-lists/${id}/import`, { method: 'POST', body: JSON.stringify(data) }),
+    link:   (itemId: number, tireId: number | null) =>
+      request<{ success: boolean }>(`/price-lists/items/${itemId}/link`, { method: 'PUT', body: JSON.stringify({ tire_id: tireId }) }),
+  },
   audit: {
     list: (params?: { entity?: string; action?: string; from?: string; to?: string; page?: number; limit?: number }) => {
       const qs = new URLSearchParams();

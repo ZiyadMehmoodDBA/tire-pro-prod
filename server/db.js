@@ -711,6 +711,178 @@ async function setupDatabase() {
       ALTER TABLE catalog_scraper_logs ADD items_updated INT DEFAULT 0
   `);
 
+  // ── Dealer price lists ────────────────────────────────────────────────────
+  await dbPool.request().query(`
+    IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='dealer_price_lists' AND xtype='U')
+    CREATE TABLE dealer_price_lists (
+      id             INT IDENTITY(1,1) PRIMARY KEY,
+      supplier_name  NVARCHAR(100) NOT NULL,
+      effective_date DATE NOT NULL,
+      notes          NVARCHAR(500) DEFAULT '',
+      created_at     DATETIME DEFAULT GETDATE()
+    )
+  `);
+  await dbPool.request().query(`
+    IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='dealer_price_items' AND xtype='U')
+    CREATE TABLE dealer_price_items (
+      id           INT IDENTITY(1,1) PRIMARY KEY,
+      list_id      INT NOT NULL REFERENCES dealer_price_lists(id),
+      category     NVARCHAR(50)  NOT NULL,
+      size         NVARCHAR(50)  NOT NULL,
+      design       NVARCHAR(100) NOT NULL,
+      ply_rating   INT           NOT NULL DEFAULT 4,
+      dealer_price DECIMAL(18,2) NOT NULL
+    )
+  `);
+  for (const [col, def] of [
+    ['tyre_total',     'DECIMAL(18,2) NULL'],
+    ['tube_total',     'DECIMAL(18,2) NULL'],
+    ['flap_total',     'DECIMAL(18,2) NULL'],
+    ['linked_tire_id', 'INT NULL'],
+  ]) {
+    await dbPool.request().query(
+      `IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id=OBJECT_ID('dealer_price_items') AND name='${col}')
+         ALTER TABLE dealer_price_items ADD ${col} ${def}`
+    );
+  }
+
+  // Seed BG April 2026 dealer price list
+  const bgExisting = await dbPool.request().query(`
+    SELECT TOP 1 dpl.id,
+      ISNULL((SELECT COUNT(*) FROM dealer_price_items WHERE list_id=dpl.id AND tyre_total IS NOT NULL),0) AS migrated
+    FROM dealer_price_lists dpl WHERE dpl.supplier_name='BG' AND dpl.effective_date='2026-04-30'
+  `);
+  const bgNeedsReseed = bgExisting.recordset.length === 0 || bgExisting.recordset[0].migrated === 0;
+  if (bgNeedsReseed) {
+    if (bgExisting.recordset.length > 0) {
+      const oldId = bgExisting.recordset[0].id;
+      await dbPool.request().input('id', sql.Int, oldId).query(`DELETE FROM dealer_price_items WHERE list_id=@id`);
+      await dbPool.request().input('id', sql.Int, oldId).query(`DELETE FROM dealer_price_lists WHERE id=@id`);
+    }
+    const bgRes = await dbPool.request()
+      .input('sup',   sql.NVarChar, 'BG')
+      .input('date',  sql.Date,     new Date('2026-04-30'))
+      .input('notes', sql.NVarChar,
+        'Prices are inclusive of 18% GST on Retail Price|||' +
+        'Prices are subject to change without any notice|||' +
+        'Orders will be accepted subject to availability|||' +
+        'Prices prevailing at the time of delivery will apply')
+      .query(`INSERT INTO dealer_price_lists (supplier_name, effective_date, notes) OUTPUT INSERTED.id VALUES (@sup, @date, @notes)`);
+    const lid = bgRes.recordset[0].id;
+    const BG_ITEMS = [
+      // PASSENGER CARS - RADIALS
+      ['Passenger Radial','145/70 R-12','RST',4,8930.00,null,null],
+      ['Passenger Radial','145/70 R-12','BG Econo',4,8930.00,null,null],
+      ['Passenger Radial','145/80 R-12','Euro Kompact',4,9870.00,null,null],
+      ['Passenger Radial','155/70 R-12','BG Traker',4,9400.00,null,null],
+      ['Passenger Radial','165/70 R-12','BG Traker',4,10340.00,null,null],
+      ['Passenger Radial','145/80 R-13','Euro Tycoon',4,10340.00,null,null],
+      ['Passenger Radial','155/80 R-13','XP-2000 II',4,11750.00,null,null],
+      ['Passenger Radial','165/65 R-13','Euro Kruze',4,10810.00,null,null],
+      ['Passenger Radial','165/80 R-13','XP-2000 II',4,12220.00,null,null],
+      ['Passenger Radial','175/70 R-13','Euro Tycoon',4,11750.00,null,null],
+      ['Passenger Radial','185/70 R-13','Euro Glide',4,12690.00,null,null],
+      ['Passenger Radial','165/65 R-14','Euro Tycoon',4,12220.00,null,null],
+      ['Passenger Radial','175/65 R-14','BG Performa',4,12690.00,null,null],
+      ['Passenger Radial','185/65 R-14','Euro Kruze',4,13160.00,null,null],
+      ['Passenger Radial','175/65 R-15','Euro Star',4,12690.00,null,null],
+      ['Passenger Radial','185/60 R-15','BG Trako Plus',4,12690.00,null,null],
+      ['Passenger Radial','185/65 R-15','BG Falcon',4,13630.00,null,null],
+      ['Passenger Radial','195/65 R-15','Euro Star',4,14100.00,null,null],
+      ['Passenger Radial','195/65 R-15','BG Thunder Max',4,15040.00,null,null],
+      ['Passenger Radial','195/60 R-16','BG Luxo Plus',4,13820.00,null,null],
+      ['Passenger Radial','205/55 R-16','BG Thunder Max',4,15510.00,null,null],
+      ['Passenger Radial','215/55 R-16','BG Luxo Plus',4,15510.00,null,null],
+      ['Passenger Radial','215/50 R-17','BG Thunder Max',4,16450.00,null,null],
+      ['Passenger Radial','215/60 R-17','BG Max Sport',4,17390.00,null,null],
+      ['Passenger Radial','225/55 R-18','BG Raptor',4,21093.60,null,null],
+      ['Passenger Radial','265/60 R-18','BG Velo Trak Plus',4,25662.00,null,null],
+      ['Passenger Radial','225/50 R-18','BG Alro Grip',4,19500.00,null,null],
+      // LIGHT TRUCK - BIAS
+      ['Light Truck Bias','450-12','PJC',8,7987.84,643.71,null],
+      ['Light Truck Bias','450-12','Chief',8,7215.39,643.71,null],
+      ['Light Truck Bias','6.00-14','Power Rib',8,13557.68,1160.63,null],
+      ['Light Truck Bias','650-14','SPJC',10,18765.09,1160.63,null],
+      ['Light Truck Bias','650-14','Chief',10,16465.00,1160.63,null],
+      ['Light Truck Bias','600-16','ND',6,12921.00,1014.33,null],
+      ['Light Truck Bias','600-16','ND',8,13711.00,1014.33,null],
+      ['Light Truck Bias','650-16','TR',10,23992.79,1643.41,1521.49],
+      ['Light Truck Bias','650-16','TR',14,25992.19,1643.41,1521.49],
+      ['Light Truck Bias','750-16','GLT II',8,25465.52,2077.42,null],
+      ['Light Truck Bias','750-16','GLT II',14,29881.33,2077.42,1521.50],
+      ['Light Truck Bias','7.00-16','TR',14,27992.00,2077.42,1521.50],
+      ['Light Truck Bias','5.00-12','Load Star',14,8074.65,null,null],
+      ['Light Truck Bias','4.50-12','PJC',8,8631.55,null,null],
+      // LIGHT TRUCK - RADIALS
+      ['Light Truck Radial','145 R12C','SS',8,8036.00,null,null],
+      ['Light Truck Radial','145 R12C','BG Cargo',8,8259.00,null,null],
+      ['Light Truck Radial','185 R14C','Euro Load',8,16774.00,null,null],
+      ['Light Truck Radial','195 R14C','SS',8,19800.20,null,null],
+      ['Light Truck Radial','195 R15C','BG Vano Plus',8,19729.88,null,null],
+      ['Light Truck Radial','205/70 R15C','BG Alro Plus',8,20481.65,null,null],
+      ['Light Truck Radial','205 R16C','BG Power Terrain A/T',8,29825.19,null,null],
+      ['Light Truck Radial','750 R16','SAG',10,29396.05,null,null],
+      // TRUCK / BUS
+      ['Truck/Bus','8.25-20','TR',14,49124.12,null,null],
+      ['Truck/Bus','900-20','HCT',14,57764.82,2789.41,1970.14],
+      ['Truck/Bus','900-20','GQT',14,57764.82,2789.41,1970.14],
+      ['Truck/Bus','9.00-20','Super Tiger',16,55475.39,null,null],
+      ['Truck/Bus','9.00-20','Super Tiger Set',16,60083.58,null,null],
+      ['Truck/Bus','1000-20','SL',16,76685.78,3160.03,1970.14],
+      ['Truck/Bus','1000-20','Super Tiger',16,61287.06,null,null],
+      ['Truck/Bus','1000-20','Super Tiger Set',16,65610.84,null,null],
+      ['Truck/Bus','1000-20','TR',16,74113.32,3160.03,1970.14],
+      ['Truck/Bus','1100-20','HCT',16,78153.71,3486.76,2145.69],
+      ['Truck/Bus','1100-20','Super Tiger',16,70581.24,null,null],
+      ['Truck/Bus','1200-20','SHCT',18,92366.00,3764.72,2145.69],
+      // TRACTOR - FRONT
+      ['Tractor Front','600-16','AT',6,10866.98,1014.33,null],
+      ['Tractor Front','600-16','AT ECO',6,10171.07,1014.33,null],
+      ['Tractor Front','600-16','AT',8,11793.04,1014.33,null],
+      ['Tractor Front','600-16','AP',8,12130.99,1014.33,null],
+      ['Tractor Front','600-16','AP',12,12420.00,1014.33,null],
+      ['Tractor Front','750-16','AP',6,17624.78,1565.38,null],
+      ['Tractor Front','750-16','AT',8,18345.71,1565.38,null],
+      ['Tractor Front','750-16','AT',12,19920.00,1565.38,null],
+      ['Tractor Front','750-16','AP Plus',8,18740.71,1565.38,null],
+      ['Tractor Front','750-16','AP Plus',12,22460.00,1565.38,null],
+      ['Tractor Front','750-20','AR',8,23068.19,null,null],
+      ['Tractor Front','900-20','AG',12,33074.94,2267.61,null],
+      // TRACTOR - REAR
+      ['Tractor Rear','12.4/11-28','PL',6,44995.26,3964.66,null],
+      ['Tractor Rear','12.4/11-28','SPL',8,48629.29,3964.66,null],
+      ['Tractor Rear','12.4/11-28','Power Gold',8,47982.59,3964.66,null],
+      ['Tractor Rear','12.4/11-28','Power Gold',12,54067.17,3964.66,null],
+      ['Tractor Rear','12.4-28','Black Bull',12,51711.97,3964.66,null],
+      ['Tractor Rear','13.6-28','Double Bull Power',12,68482.93,3964.66,null],
+      ['Tractor Rear','14.9/13-28','SPL',8,69538.13,5061.89,null],
+      ['Tractor Rear','14.9-28','Double Bull Power',12,81524.51,5061.89,null],
+      ['Tractor Rear','15.5-38','PLP',12,108000.00,null,null],
+      ['Tractor Rear','16.9-34','PLP',12,119835.22,null,null],
+      ['Tractor Rear','16.9/14-30','SAGT',8,89082.02,7539.20,null],
+      ['Tractor Rear','16.9/14-30','SAGT',14,91355.48,7539.20,null],
+      ['Tractor Rear','18.4/15-30','SAGT',8,110899.37,7992.72,null],
+      ['Tractor Rear','18.4/15-30','SAGT',14,114533.40,7992.72,null],
+      ['Tractor Rear','18.4/15-30','SAGT',18,130895.10,7992.72,null],
+      ['Tractor Rear','18.4-30','Double Bull Power',18,137671.81,7992.72,null],
+    ];
+    for (const [cat, sz, des, ply, tyre, tube, flap] of BG_ITEMS) {
+      const setPrice = tyre + (tube || 0) + (flap || 0);
+      await dbPool.request()
+        .input('lid',   sql.Int,            lid)
+        .input('cat',   sql.NVarChar,       cat)
+        .input('sz',    sql.NVarChar,       sz)
+        .input('des',   sql.NVarChar,       des)
+        .input('ply',   sql.Int,            ply)
+        .input('tyre',  sql.Decimal(18, 2), tyre)
+        .input('tube',  sql.Decimal(18, 2), tube)
+        .input('flap',  sql.Decimal(18, 2), flap)
+        .input('price', sql.Decimal(18, 2), setPrice)
+        .query(`INSERT INTO dealer_price_items (list_id,category,size,design,ply_rating,tyre_total,tube_total,flap_total,dealer_price) VALUES (@lid,@cat,@sz,@des,@ply,@tyre,@tube,@flap,@price)`);
+    }
+    console.log('✅ BG April 2026 price list seeded (89 SKUs, with tube/flap data)');
+  }
+
   // ── Demo organisation ─────────────────────────────────────────────────────
   // Seed a read-only demo org + branch + user if they don't exist yet.
   // Demo data (customers / suppliers / tires) is also seeded here once.
