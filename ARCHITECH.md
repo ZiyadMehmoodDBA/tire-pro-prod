@@ -209,3 +209,31 @@ JWT_SECRET      64-byte hex string
 ```
 
 Generate JWT_SECRET: `node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"`
+
+---
+
+## Auth UX Rules
+
+### Login Form — Credential Prefill Prevention (2026-05-08)
+
+**Requirement:** Login screen must always load with empty fields. No prefill under any condition — page refresh, logout, session timeout, route change, or failed login.
+
+**Implementation (`src/pages/Auth.tsx`):**
+
+| Mechanism | Detail |
+|---|---|
+| `<form autoComplete="off">` | Tells browser to skip the form; ignored by some browsers for password fields |
+| `autoComplete="off"` on email input | Prevents browser from injecting saved email |
+| `autoComplete="new-password"` on password inputs | Cross-browser reliable way to block password manager injection — browsers deliberately ignore `"off"` on password fields but respect `"new-password"` |
+| Form state initialises as `{}` | All fields render as empty strings via `form[field.name] ?? ''` |
+| Failed login clears credentials | Catch block runs `setForm(f => ({ ...f, password: '', confirmPassword: '' }))` before `setErrors` |
+| Logout / session timeout | `setUser(null)` unmounts Auth; React re-mounts with fresh state — no persistence |
+| `switchView()` calls `setForm({})` | Navigating between login/register/forgot views always resets form |
+
+**What is NOT stored:**
+- No credentials in `localStorage`, `sessionStorage`, cookies, or any persisted state
+- `form` state is ephemeral React component state — gone on unmount
+
+### Post-Login Navigation (2026-05-08)
+
+`handleAuth` in `App.tsx` calls `setActivePage('dashboard')` before `setUser`. Ensures every login (including demo, Google SSO, session restore via token) always lands on the dashboard regardless of prior navigation state.

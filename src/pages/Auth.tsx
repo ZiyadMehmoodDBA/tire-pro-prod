@@ -29,12 +29,13 @@ interface FormField {
   placeholder: string;
   icon: React.ElementType;
   required?: boolean;
+  autoComplete?: string;
   options?: { value: string; label: string }[];
 }
 
 const registerFields: FormField[] = [
   { label: 'Full Name',        name: 'fullName',        type: 'text',     placeholder: 'Muhammad Ahmed',   icon: User,      required: true },
-  { label: 'Email Address',    name: 'email',           type: 'email',    placeholder: 'ahmed@company.pk', icon: Mail,      required: true },
+  { label: 'Email Address',    name: 'email',           type: 'email',    placeholder: 'ahmed@company.pk', icon: Mail,      required: true, autoComplete: 'off' },
   { label: 'Phone Number',     name: 'phone',           type: 'tel',      placeholder: '+92-300-1234567',  icon: Phone,     required: true },
   { label: 'Business Name',    name: 'org_name',        type: 'text',     placeholder: 'TirePro Traders',  icon: Building2, required: true },
   { label: 'Business Type',    name: 'org_type',        type: 'select',   placeholder: '',                 icon: Building2, required: true,
@@ -46,13 +47,13 @@ const registerFields: FormField[] = [
     ],
   },
   { label: 'City / Address',   name: 'city',            type: 'text',     placeholder: 'Lahore',           icon: MapPin },
-  { label: 'Password',         name: 'password',        type: 'password', placeholder: '••••••••',         icon: Lock,      required: true },
-  { label: 'Confirm Password', name: 'confirmPassword', type: 'password', placeholder: '••••••••',         icon: Lock,      required: true },
+  { label: 'Password',         name: 'password',        type: 'password', placeholder: '••••••••',         icon: Lock,      required: true, autoComplete: 'new-password' },
+  { label: 'Confirm Password', name: 'confirmPassword', type: 'password', placeholder: '••••••••',         icon: Lock,      required: true, autoComplete: 'new-password' },
 ];
 
 const loginFields: FormField[] = [
-  { label: 'Email Address', name: 'email',    type: 'email',    placeholder: 'ahmed@company.pk', icon: Mail, required: true },
-  { label: 'Password',      name: 'password', type: 'password', placeholder: '••••••••',         icon: Lock, required: true },
+  { label: 'Email Address', name: 'email',    type: 'email',    placeholder: 'ahmed@company.pk', icon: Mail, required: true, autoComplete: 'off' },
+  { label: 'Password',      name: 'password', type: 'password', placeholder: '••••••••',         icon: Lock, required: true, autoComplete: 'new-password' },
 ];
 
 function getPasswordStrength(pw: string): { score: number; label: string; color: string } {
@@ -196,6 +197,7 @@ export default function Auth({ onAuth }: AuthProps) {
         onAuth({ ...userFields, accessToken, refreshToken, rememberMe: remember });
       }
     } catch (err: any) {
+      setForm(f => ({ ...f, password: '', confirmPassword: '' }));
       setErrors({ _form: err.message || 'Something went wrong. Please try again.' });
     } finally {
       setLoading(false);
@@ -418,7 +420,7 @@ export default function Auth({ onAuth }: AuthProps) {
 
               {/* Email / password form — login / register only */}
               {(view === 'login' || view === 'register') && (
-              <form onSubmit={handleSubmit} noValidate className="space-y-4">
+              <form onSubmit={handleSubmit} noValidate autoComplete="off" className="space-y-4">
                 {fields.map(field => {
                   const Icon       = field.icon;
                   const isPassword = field.type === 'password';
@@ -456,6 +458,7 @@ export default function Auth({ onAuth }: AuthProps) {
                             placeholder={field.placeholder}
                             value={form[field.name] ?? ''}
                             onChange={e => set(field.name, e.target.value)}
+                            autoComplete={field.autoComplete ?? 'off'}
                             className={cn(
                               'w-full pl-10 pr-10 py-2.5 text-sm border rounded-xl focus:outline-none focus:ring-2 transition-all bg-slate-50 focus:bg-white',
                               errors[field.name]
