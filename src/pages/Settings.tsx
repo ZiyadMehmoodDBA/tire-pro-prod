@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import {
   Building2, FileText, Tag, Save, Loader2, CheckCircle, AlertCircle,
-  Package, Wrench, Users, Server, Globe,
+  Package, Wrench, Users, Server, Globe, Palette,
 } from 'lucide-react';
 import { api } from '../api/client';
 
@@ -13,21 +13,23 @@ import ServicesTab     from './settings/ServicesTab';
 import UsersTab        from './settings/UsersTab';
 import SystemInfoTab   from './settings/SystemInfoTab';
 import CatalogScraperTab from './settings/CatalogScraperTab';
+import AppearanceTab   from './settings/AppearanceTab';
 
-type Tab = 'company' | 'defaults' | 'products' | 'lookups' | 'services' | 'users' | 'system' | 'catalog';
+type Tab = 'company' | 'defaults' | 'products' | 'lookups' | 'services' | 'users' | 'system' | 'catalog' | 'appearance';
 
 const ALL_TABS: { id: Tab; label: string; icon: React.ElementType; adminOnly?: boolean }[] = [
-  { id: 'company',  label: 'Company Profile',       icon: Building2 },
-  { id: 'defaults', label: 'Invoice & PO Defaults',  icon: FileText },
-  { id: 'products', label: 'Products',               icon: Package  },
-  { id: 'lookups',  label: 'Lookup Tables',          icon: Tag      },
-  { id: 'services', label: 'Services',               icon: Wrench   },
-  { id: 'users',    label: 'Users',                  icon: Users    },
-  { id: 'catalog',  label: 'Catalog Scraper',        icon: Globe,   adminOnly: true },
-  { id: 'system',   label: 'System',                 icon: Server,  adminOnly: true },
+  { id: 'company',    label: 'Company Profile',       icon: Building2 },
+  { id: 'defaults',   label: 'Invoice & PO Defaults',  icon: FileText },
+  { id: 'products',   label: 'Products',               icon: Package  },
+  { id: 'lookups',    label: 'Lookup Tables',          icon: Tag      },
+  { id: 'services',   label: 'Services',               icon: Wrench   },
+  { id: 'users',      label: 'Users',                  icon: Users    },
+  { id: 'appearance', label: 'Appearance',             icon: Palette  },
+  { id: 'catalog',    label: 'Catalog Scraper',        icon: Globe,   adminOnly: true },
+  { id: 'system',     label: 'System',                 icon: Server,  adminOnly: true },
 ];
 
-const AUTO_SAVE_TABS: Tab[] = ['lookups', 'products', 'services', 'users', 'system', 'catalog'];
+const AUTO_SAVE_TABS: Tab[] = ['lookups', 'products', 'services', 'users', 'system', 'catalog', 'appearance'];
 
 function getCurrentUserRole(): string | null {
   try {
@@ -121,6 +123,7 @@ export default function Settings() {
           {tab === 'lookups'  && <LookupsTab />}
           {tab === 'services' && <ServicesTab />}
           {tab === 'users'    && <UsersTab />}
+          {tab === 'appearance' && <AppearanceTab />}
           {tab === 'catalog'  && isAdmin && <CatalogScraperTab />}
           {tab === 'system'   && isAdmin && <SystemInfoTab />}
         </div>

@@ -182,7 +182,7 @@ export default function App() {
 
   if (authLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#f0f4f7]">
+      <div className="min-h-screen flex items-center justify-center bg-app-shell">
         <div className="w-8 h-8 border-2 border-teal-500 border-t-transparent rounded-full animate-spin" />
       </div>
     );
@@ -205,7 +205,7 @@ export default function App() {
   };
 
   return (
-    <div className="flex h-screen overflow-hidden bg-[#f0f4f7]">
+    <div className="flex h-screen overflow-hidden bg-app-shell">
       <Sidebar
         activePage={activePage}
         onNavigate={handleNavigate}
